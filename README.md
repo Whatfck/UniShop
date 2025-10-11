@@ -31,7 +31,7 @@ La siguiente fase es el desarrollo del **backend**, comenzando por la definició
 
 | Capa      | Tecnología Principal | Detalles                                           |
 | :-------- | :------------------- | :------------------------------------------------- |
-| **Backend** | **NestJS**           | API RESTñ modular, TypeScript, Inyección de Dependencias. |
+| **Backend** | **NestJS**           | API REST modular, TypeScript, Inyección de Dependencias. |
 | **Frontend**  | **React**            | UI reactiva con TypeScript y Vite.                 |
 | **Base de Datos** | **PostgreSQL**       | Base de datos relacional robusta.                  |
 | **ORM**       | **TypeORM**          | Mapeo Objeto-Relacional para la interacción con la BD. |
