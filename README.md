@@ -10,7 +10,7 @@ En esta primera fase, la plataforma está diseñada para ser utilizada **dentro 
 
 Toda la documentación funcional, arquitectónica y de decisiones técnicas se encuentra centralizada en la carpeta `docs`. Para una comprensión completa del proyecto, se recomienda empezar por el índice de documentación.
 
-➡️ **Ir al Índice de Documentación**
+➡️ [**Ir al Índice de Documentación**](/docs/README.md)
 
 ---
 
