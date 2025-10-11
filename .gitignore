@@ -1,12 +1,12 @@
 # Dependency directories
 node_modules/
-**/node_modules
 
 # Build output
 dist/
 build/
-**/dist
-**/build
+# También ignorar dist y build en subdirectorios
+**/dist/
+**/build/
 
 # Environment variables
 # Never commit .env files!

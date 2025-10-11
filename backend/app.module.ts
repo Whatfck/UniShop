@@ -1,11 +1,37 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { DatabaseModule } from './database.module';
+import { UserModule } from './src/user/user.module';
+import { ProductModule } from './src/product/product.module';
+import { CategoryModule } from './src/category/category.module';
+import { FavoriteModule } from './src/favorite/favorite.module';
+import { MetricsModule } from './src/metrics/metrics.module';
+import { ModerationModule } from './src/moderation/moderation.module';
+import { ContactModule } from './src/contact/contact.module';
+import { PhoneVerificationModule } from './src/phone-verification/phone-verification.module';
+import { TagModule } from './src/tag/tag.module';
+import { RecommendationModule } from './src/recommendation/recommendation.module';
+import { ChatbotModule } from './src/chatbot/chatbot.module';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  
-  // Usaremos el puerto 8080 para mantener la consistencia con la configuración de Docker
-  await app.listen(8080);
-}
-bootstrap();
-
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    DatabaseModule,
+    UserModule,
+  ProductModule,
+  CategoryModule,
+  FavoriteModule,
+  MetricsModule,
+  ModerationModule,
+  ContactModule,
+  PhoneVerificationModule,
+  TagModule,
+  RecommendationModule,
+  ChatbotModule,
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}

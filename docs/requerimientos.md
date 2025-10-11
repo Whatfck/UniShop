@@ -77,6 +77,10 @@ Los requerimientos no funcionales describen las características de calidad y la
 ### RNF-05: Mantenibilidad
 -   **RNF-05.1:** El código debe seguir las guías de estilo definidas y estar debidamente documentado para facilitar la incorporación de nuevos desarrolladores.
 
+### RNF-06: Testing
+-   **RNF-06.1:** Se deben implementar pruebas unitarias y de integración utilizando Jest para garantizar la calidad y estabilidad del código.
+-   **RNF-06.2:** Las pruebas deben cubrir al menos el 70% del código, incluyendo servicios, controladores y utilidades principales.
+
 ---
 
 ## 3. Vistas Principales del Frontend (Descripción Funcional)
