@@ -15,9 +15,9 @@ export class CreateUserDto {
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({ example: 'john.doe@miuniversidad.edu.co', description: 'Correo institucional del usuario' })
+  @ApiProperty({ example: 'john.doe@campusucc.edu.co', description: 'Correo institucional del usuario' })
   @IsEmail()
-  @Matches(/@miuniversidad\.edu\.co$/, { message: 'El correo debe ser institucional (@miuniversidad.edu.co)' })
+  @Matches(/@campusucc\.edu\.co$/, { message: 'El correo debe ser institucional (@campusucc.edu.co)' })
   email: string;
 
   @ApiProperty({ example: 'Password123!', description: 'Contraseña del usuario (mínimo 8 caracteres)' })

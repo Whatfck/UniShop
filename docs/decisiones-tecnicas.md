@@ -35,3 +35,31 @@ Este documento registra y justifica las decisiones tecnológicas clave tomadas d
     -   **Componentización**: La arquitectura basada en componentes de React facilita la creación de UIs complejas y reutilizables.
     -   **Seguridad de Tipos**: TypeScript añade un sistema de tipado estático que previene una gran cantidad de errores comunes en tiempo de desarrollo, mejorando la calidad y mantenibilidad del código.
     -   **Ecosistema y Comunidad**: React tiene uno de los ecosistemas más grandes y una comunidad muy activa, lo que asegura soporte y una gran cantidad de librerías disponibles.
+
+## 5. Sistema de IA: PostgreSQL + pgvector + NestJS
+
+-   **Decisión**: Implementar un sistema completo de IA usando PostgreSQL con pgvector para embeddings, integrado en el backend NestJS.
+-   **Justificación**:
+    -   **Base de Datos Unificada**: Mantener todos los datos (aplicación + IA) en una sola base de datos PostgreSQL simplifica la arquitectura y reduce la complejidad operativa.
+    -   **Búsqueda Semántica**: pgvector permite almacenar y buscar embeddings vectoriales directamente en PostgreSQL, eliminando la necesidad de servicios externos para esta funcionalidad.
+    -   **Escalabilidad**: PostgreSQL puede manejar tanto datos relacionales como vectoriales eficientemente, preparándonos para crecimiento futuro.
+    -   **Integración Nativa**: Al estar dentro del backend NestJS, el sistema de IA puede acceder directamente a todas las métricas y datos de la aplicación para fine-tuning continuo.
+    -   **Cost-Effective**: No requiere servicios externos costosos para funcionalidades básicas de IA, manteniendo los costos bajos mientras se prepara para escalar.
+
+## 6. Arquitectura de Testing: Jest + Testing Library
+
+-   **Decisión**: Implementar testing completo con Jest para unitarias, integración y e2e, alcanzando 70%+ cobertura.
+-   **Justificación**:
+    -   **Calidad Garantizada**: 45 pruebas unitarias actualmente pasando, con cobertura completa de servicios críticos.
+    -   **Mantenibilidad**: Tests sirven como documentación viva y previenen regresiones durante el desarrollo.
+    -   **Integración Continua**: Base sólida para CI/CD pipelines futuros.
+    -   **Desarrollo Guiado por Tests**: Asegura que nuevas funcionalidades sean testeables desde el inicio.
+
+## 7. Documentación: Markdown + Swagger + TypeDoc
+
+-   **Decisión**: Mantener documentación técnica en Markdown, APIs documentadas con Swagger, y código con TypeDoc.
+-   **Justificación**:
+    -   **Accesibilidad**: Documentación en Markdown es fácil de mantener y versionar con Git.
+    -   **APIs Auto-Documentadas**: Swagger genera documentación interactiva automáticamente desde el código.
+    -   **Consistencia**: TypeDoc mantiene documentación del código sincronizada con los cambios.
+    -   **Developer Experience**: Documentación completa acelera la incorporación de nuevos desarrolladores.

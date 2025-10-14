@@ -43,4 +43,46 @@ NestJS, al ser un framework "opinionado", nos guía en la aplicación de varios 
     -   **Código Limpio**: Separa la lógica transversal (como el enrutamiento o la autenticación) de la lógica de negocio principal.
     -   **Legibilidad**: Hace que la intención del código sea más explícita.
 
+### Patrón Repository (TypeORM)
+-   **Descripción**: Abstrae el acceso a datos mediante repositorios que encapsulan las consultas a la base de datos. TypeORM genera automáticamente los repositorios basados en las entidades.
+-   **Beneficios**:
+    -   **Desacoplamiento**: La lógica de negocio no conoce los detalles de la base de datos.
+    -   **Testabilidad**: Los repositorios pueden ser fácilmente mockeados en tests.
+    -   **Mantenibilidad**: Cambios en la base de datos no afectan la lógica de negocio.
+
+### Patrón Observer (Eventos)
+-   **Descripción**: Implementado a través del sistema de logging personalizado que observa y registra eventos importantes del sistema (moderación, autenticación, errores).
+-   **Beneficios**:
+    -   **Auditoría**: Registro completo de acciones para debugging y compliance.
+    -   **Monitoreo**: Métricas en tiempo real del comportamiento del sistema.
+    -   **Reactividad**: Permite implementar acciones automáticas basadas en eventos.
+
+### Patrón Strategy (Múltiples Algoritmos)
+-   **Descripción**: Aplicado en el sistema de recomendaciones que puede usar diferentes estrategias (por categoría, popularidad, similitud) según el contexto.
+-   **Beneficios**:
+    -   **Flexibilidad**: Fácil añadir nuevas estrategias de recomendación.
+    -   **Mantenibilidad**: Cada estrategia es independiente y testeable.
+    -   **Escalabilidad**: Nuevos algoritmos no afectan los existentes.
+
+### Patrón Factory (Creación de Objetos)
+-   **Descripción**: TypeORM utiliza este patrón para crear instancias de entidades y repositorios. También aplicado en la creación de respuestas DTO.
+-   **Beneficios**:
+    -   **Consistencia**: Garantiza que los objetos se creen correctamente.
+    -   **Centralización**: Lógica de creación en un solo lugar.
+    -   **Flexibilidad**: Fácil cambiar la lógica de creación sin afectar el código cliente.
+
+### Patrón Singleton (Instancias Únicas)
+-   **Descripción**: Aplicado en servicios como el CustomLogger y el pool de conexiones de base de datos.
+-   **Beneficios**:
+    -   **Eficiencia**: Una sola instancia compartida reduce el uso de recursos.
+    -   **Consistencia**: Estado global consistente across la aplicación.
+    -   **Control**: Instancia centralizada facilita el management.
+
+### Patrón Command (Operaciones Complejas)
+-   **Descripción**: Implementado en operaciones complejas como la moderación de productos y el fine-tuning del chatbot, donde cada operación es encapsulada.
+-   **Beneficios**:
+    -   **Reversibilidad**: Operaciones pueden ser deshechas si es necesario.
+    -   **Logging**: Cada comando puede ser auditado independientemente.
+    -   **Reutilización**: Comandos pueden ser ejecutados desde diferentes contextos.
+
 ---

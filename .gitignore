@@ -42,3 +42,40 @@ coverage/
 
 # Docker
 docker-compose.override.yml
+
+# AI/ML specific
+# Model weights and embeddings (if stored locally)
+models/
+embeddings/
+*.pkl
+*.h5
+*.pb
+*.onnx
+
+# API Keys and secrets for AI services
+openai.key
+anthropic.key
+huggingface.token
+replicate.token
+
+# Temporary AI processing files
+temp_embeddings/
+cache/embeddings/
+ai_logs/
+
+# Database dumps (except schema files)
+*.sql
+!database/*.sql
+!database/training-schema.sql
+!database/setup-pgvector.sql
+
+# Jupyter notebooks (if used for AI experimentation)
+*.ipynb
+.ipynb_checkpoints/
+
+# Python virtual environments (if mixing Python/Node)
+venv/
+env/
+.venv/
+__pycache__/
+*.pyc

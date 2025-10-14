@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { User } from '../../user/entities/user.entity';
+import { Category } from '../../category/entities/category.entity';
 
 @Entity('products')
 export class Product {
@@ -11,17 +13,32 @@ export class Product {
   @Column('text')
   description!: string;
 
-  @Column('decimal')
+  @Column('decimal', { precision: 10, scale: 2 })
   price!: number;
+
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'categoryId' })
+  category: Category;
 
   @Column()
   categoryId!: number;
 
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @Column()
+  userId!: string;
+
   @Column('simple-array')
   images!: string[];
 
-  @Column({ default: 'ACTIVE' })
+  @Column({ type: 'enum', enum: ['ACTIVE', 'SOLD', 'INACTIVE'], default: 'ACTIVE' })
   status!: 'ACTIVE' | 'SOLD' | 'INACTIVE';
 
-  // Relaciones con usuario, categoría, etc. se agregarán después
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

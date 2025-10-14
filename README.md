@@ -16,14 +16,44 @@ Toda la documentación funcional, arquitectónica y de decisiones técnicas se e
 
 ## ✨ Estado Actual del Proyecto
 
-El proyecto ha completado su fase inicial de **planificación y diseño arquitectónico**. Se han definido los requerimientos, la arquitectura de software y los patrones de diseño que guiarán el desarrollo.
+El proyecto ha completado exitosamente la **fase de desarrollo del backend** (~90% completado). Se ha implementado una API REST completa y robusta siguiendo las mejores prácticas de desarrollo.
 
+### ✅ **Fase de Planificación - COMPLETADA**
 -   ✅ **Requerimientos Funcionales y No Funcionales** definidos.
 -   ✅ **Arquitectura de 3 Capas** y **Monolito Modular** establecida.
 -   ✅ **Patrones de Software** (Inyección de Dependencias, Controller-Service, etc.) documentados.
 -   ✅ **Stack Tecnológico** seleccionado y justificado.
 
-La siguiente fase es el desarrollo del **backend**, comenzando por la definición de las entidades de la base de datos y la implementación de los módulos de negocio.
+### ✅ **Fase de Desarrollo Backend - COMPLETADA**
+-   ✅ **API REST completa** con 70+ endpoints documentados en Swagger
+-   ✅ **Autenticación JWT** con roles (USER, MODERATOR, ADMIN)
+-   ✅ **Gestión completa de productos** con moderación automática
+-   ✅ **Sistema de categorías** con control de acceso
+-   ✅ **Panel de moderación** para usuarios MODERATOR
+-   ✅ **Estadísticas avanzadas** para vendedores
+-   ✅ **Búsqueda y filtros** avanzados con ordenamiento
+-   ✅ **Sistema de favoritos** y métricas de productos
+-   ✅ **Verificación de teléfono** y contacto WhatsApp
+-   ✅ **Recomendaciones inteligentes** basadas en popularidad
+-   ✅ **Chatbot IA completo** con procesamiento local gratuito
+-   ✅ **Sistema de IA avanzado** con 15 tablas especializadas
+-   ✅ **Fine-tuning continuo** del chatbot con aprendizaje automático
+-   ✅ **Base de conocimientos semántica** preparada para pgvector
+-   ✅ **Entrenamiento automático** desde conversaciones reales
+-   ✅ **Detección de intents** y extracción de entidades
+-   ✅ **Seguridad avanzada** (Helmet, CORS, timeouts, compresión)
+-   ✅ **Base de datos optimizada** con PostgreSQL y TypeORM
+-   ✅ **Testing completo** con 45 pruebas unitarias pasando
+-   ✅ **Logging personalizado** con Winston y auditoría completa
+-   ✅ **Documentación técnica** completa y actualizada
+
+### 🚀 **Próximas Fases**
+1. **Desarrollo del Frontend** - React con TypeScript y Tailwind CSS
+2. **Integración Frontend-Backend** - Conectar APIs implementadas
+3. **Funcionalidades IA Avanzadas** - Integración con modelos OpenAI/GPT
+4. **Testing E2E** - Pruebas de integración completas
+5. **Despliegue en Producción** - Configuración cloud-ready con Kubernetes
+6. **Monitoreo y Analytics** - Dashboards en tiempo real
 
 ---
 
@@ -33,10 +63,17 @@ La siguiente fase es el desarrollo del **backend**, comenzando por la definició
 | :-------- | :------------------- | :------------------------------------------------- |
 | **Backend** | **NestJS**           | API REST modular, TypeScript, Inyección de Dependencias. |
 | **Frontend**  | **React**            | UI reactiva con TypeScript y Vite.                 |
-| **Base de Datos** | **PostgreSQL**       | Base de datos relacional robusta.                  |
-| **ORM**       | **TypeORM**          | Mapeo Objeto-Relacional para la interacción con la BD. |
+| **Base de Datos** | **PostgreSQL**       | Base de datos relacional robusta con optimizaciones. |
+| **ORM**       | **TypeORM**          | Mapeo Objeto-Relacional con pool de conexiones.    |
+| **Autenticación** | **JWT + Passport**   | Tokens JWT con estrategia Passport.                |
+| **Validación** | **class-validator**  | Validaciones DTO robustas.                         |
+| **Documentación** | **Swagger**          | API documentada automáticamente.                   |
+| **Testing** | **Jest**             | 45+ pruebas unitarias implementadas.               |
+| **Logging** | **Winston**          | Logging estructurado con niveles configurables.    |
+| **Seguridad** | **Helmet + CORS**    | Headers de seguridad y control de origen.          |
+| **IA/ML** | **pgvector + NestJS** | Sistema completo de IA con embeddings y fine-tuning. |
 | **Estilos**     | **Tailwind CSS**     | Framework CSS Utility-First para un diseño rápido. |
-| **Contenedores** | **Docker**           | Contenerización de servicios para portabilidad.    |
+| **Contenedores** | **Docker**           | Contenerización completa para desarrollo y producción. |
 
 ---
 
@@ -62,9 +99,39 @@ Este es el método más sencillo para levantar todo el entorno de desarrollo (Ba
 
 3.  **Servicios disponibles:**
     -   **Backend API:** http://localhost:8080
-    -   **Documentación de la API (Swagger):** http://localhost:8080/api
-    -   **Frontend:** http://localhost:3000
-    -   **Base de Datos (PostgreSQL):** `localhost:5432`
+    -   **Documentación de la API (Swagger):** http://localhost:8080/api/docs
+    -   **Base de Datos (PostgreSQL):** `localhost:5432` (usuario: `unishop_user`, BD: `unishop_db`)
+
+### Ejecución Local (Backend)
+
+Si deseas ejecutar solo el backend localmente:
+
+1.  **Instalar dependencias:**
+    ```bash
+    cd backend
+    npm install
+    ```
+
+2.  **Configurar base de datos:**
+    Asegúrate de tener PostgreSQL corriendo localmente o ajusta las variables de entorno en `.env`.
+
+3.  **Ejecutar en modo desarrollo:**
+    ```bash
+    npm run start:dev
+    ```
+
+4.  **Ver documentación:**
+    - API: http://localhost:8080/api/v1
+    - Swagger: http://localhost:8080/api/docs
+
+### Testing
+
+```bash
+cd backend
+npm run test              # Ejecutar todas las pruebas
+npm run test:cov          # Ejecutar con cobertura
+npm run test:e2e          # Pruebas end-to-end (futuro)
+```
 
 ---
 

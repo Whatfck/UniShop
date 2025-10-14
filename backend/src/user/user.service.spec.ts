@@ -6,6 +6,8 @@ import { ConflictException } from '@nestjs/common';
 
 import { UserService } from './user.service';
 import { User, UserRole } from './entities/user.entity';
+import { Product } from '../product/entities/product.entity';
+import { Metric } from '../metrics/entities/metric.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 
 // Mockeamos la librería bcrypt para no hashear contraseñas reales en los tests
@@ -22,6 +24,30 @@ describe('UserService', () => {
     findOneBy: jest.fn(),
   };
 
+  const mockProductRepository = {
+    count: jest.fn(),
+    createQueryBuilder: jest.fn().mockReturnThis(),
+    leftJoin: jest.fn().mockReturnThis(),
+    leftJoinAndSelect: jest.fn().mockReturnThis(),
+    select: jest.fn().mockReturnThis(),
+    addSelect: jest.fn().mockReturnThis(),
+    where: jest.fn().mockReturnThis(),
+    groupBy: jest.fn().mockReturnThis(),
+    addGroupBy: jest.fn().mockReturnThis(),
+    orderBy: jest.fn().mockReturnThis(),
+    take: jest.fn().mockReturnThis(),
+    getRawMany: jest.fn(),
+    getRawAndEntities: jest.fn(),
+  };
+
+  const mockMetricRepository = {
+    createQueryBuilder: jest.fn().mockReturnThis(),
+    select: jest.fn().mockReturnThis(),
+    addSelect: jest.fn().mockReturnThis(),
+    where: jest.fn().mockReturnThis(),
+    getRawOne: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -29,6 +55,14 @@ describe('UserService', () => {
         {
           provide: getRepositoryToken(User),
           useValue: mockUserRepository,
+        },
+        {
+          provide: getRepositoryToken(Product),
+          useValue: mockProductRepository,
+        },
+        {
+          provide: getRepositoryToken(Metric),
+          useValue: mockMetricRepository,
         },
       ],
     }).compile();

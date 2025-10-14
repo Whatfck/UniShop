@@ -15,8 +15,21 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: true, // En desarrollo, crea automáticamente las tablas. Desactivar en producción.
-        logging: true, // Muestra las consultas SQL en la consola.
+        synchronize: configService.get<string>('NODE_ENV') !== 'production', // Solo sincronizar en desarrollo
+        logging: configService.get<string>('NODE_ENV') === 'development', // Logging solo en desarrollo
+        // Configuraciones de producción para mejor rendimiento
+        extra: configService.get<string>('NODE_ENV') === 'production' ? {
+          max: 20, // Máximo de conexiones
+          connectionTimeoutMillis: 2000,
+          query_timeout: 10000,
+          statement_timeout: 10000,
+        } : undefined,
+        // Pool de conexiones para mejor rendimiento
+        poolSize: configService.get<string>('NODE_ENV') === 'production' ? 10 : 5,
+        // Cache de consultas para mejor rendimiento
+        cache: {
+          duration: 60000, // 1 minuto de cache
+        },
       }),
     }),
   ],
