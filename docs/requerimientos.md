@@ -45,11 +45,12 @@ Los requerimientos funcionales describen las funcionalidades específicas que el
     -   Número de clics en el botón "Contactar".
 -   **RF-04.3:** Un vendedor debe poder ver las estadísticas de sus propias publicaciones, así como un historial de los productos que ha vendido.
 
-### RF-05: (Futuro - Funcionalidades de IA)
--   **RF-05.1:** El sistema deberá tener un motor de recomendación para sugerir "productos relacionados" en las búsquedas y en las páginas de producto, basado en métricas de popularidad y similitud.
--   **RF-05.2:** Se implementará un sistema de moderación automática que analice las nuevas publicaciones (imágenes y texto). En lugar de censurar automáticamente, el sistema detectará contenido inapropiado (como información de contacto) y bloqueará la publicación, informando al usuario del motivo específico para que pueda corregirlo. Los casos ambiguos se enviarán a revisión manual.
--   **RF-05.3:** El sistema de IA deberá analizar la imagen y descripción de un producto para sugerir o asignar automáticamente `tags` (etiquetas) que faciliten su búsqueda y categorización.
--   **RF-05.4:** Se implementará un chatbot para asistir a los usuarios con preguntas frecuentes sobre el uso de la plataforma.
+### RF-05: Funcionalidades de IA con LLM Local
+-   **RF-05.1:** El sistema deberá tener un motor de recomendación para sugerir "productos relacionados" en las búsquedas y en las páginas de producto, basado en métricas de popularidad y similitud semántica utilizando embeddings vectoriales.
+-   **RF-05.2:** Se implementará un sistema de moderación automática que analice las nuevas publicaciones (imágenes y texto) utilizando modelos de lenguaje de código abierto ejecutados localmente. En lugar de censurar automáticamente, el sistema detectará contenido inapropiado (como información de contacto) y bloqueará la publicación, informando al usuario del motivo específico para que pueda corregirlo. Los casos ambiguos se enviarán a revisión manual.
+-   **RF-05.3:** El sistema de IA deberá analizar la imagen y descripción de un producto para sugerir o asignar automáticamente `tags` (etiquetas) que faciliten su búsqueda y categorización, utilizando modelos de visión y lenguaje locales.
+-   **RF-05.4:** Se implementará un chatbot para asistir a los usuarios con preguntas frecuentes sobre el uso de la plataforma, utilizando modelos LLM de código abierto ejecutados localmente para garantizar la privacidad de las conversaciones.
+-   **RF-05.5:** Todos los modelos de IA utilizados (LLM, modelos de visión, embeddings) serán de código abierto y se ejecutarán localmente en la infraestructura de la institución, asegurando que ningún dato sensible salga de los servidores controlados.
 
 ---
 

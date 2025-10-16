@@ -36,15 +36,18 @@ Este documento registra y justifica las decisiones tecnológicas clave tomadas d
     -   **Seguridad de Tipos**: TypeScript añade un sistema de tipado estático que previene una gran cantidad de errores comunes en tiempo de desarrollo, mejorando la calidad y mantenibilidad del código.
     -   **Ecosistema y Comunidad**: React tiene uno de los ecosistemas más grandes y una comunidad muy activa, lo que asegura soporte y una gran cantidad de librerías disponibles.
 
-## 5. Sistema de IA: PostgreSQL + pgvector + NestJS
+## 5. Sistema de IA: PostgreSQL + pgvector + NestJS + LLM Open Source Local
 
--   **Decisión**: Implementar un sistema completo de IA usando PostgreSQL con pgvector para embeddings, integrado en el backend NestJS.
+-   **Decisión**: Implementar un sistema completo de IA usando PostgreSQL con pgvector para embeddings, integrado en el backend NestJS, y utilizar modelos de lenguaje de gran escala (LLM) de código abierto ejecutados localmente para funcionalidades avanzadas de IA.
 -   **Justificación**:
     -   **Base de Datos Unificada**: Mantener todos los datos (aplicación + IA) en una sola base de datos PostgreSQL simplifica la arquitectura y reduce la complejidad operativa.
     -   **Búsqueda Semántica**: pgvector permite almacenar y buscar embeddings vectoriales directamente en PostgreSQL, eliminando la necesidad de servicios externos para esta funcionalidad.
     -   **Escalabilidad**: PostgreSQL puede manejar tanto datos relacionales como vectoriales eficientemente, preparándonos para crecimiento futuro.
     -   **Integración Nativa**: Al estar dentro del backend NestJS, el sistema de IA puede acceder directamente a todas las métricas y datos de la aplicación para fine-tuning continuo.
     -   **Cost-Effective**: No requiere servicios externos costosos para funcionalidades básicas de IA, manteniendo los costos bajos mientras se prepara para escalar.
+    -   **LLM Open Source Local**: Utilizar modelos como Llama, Mistral o GPT-J ejecutados localmente garantiza privacidad de datos, evita costos de API externos y permite un control total sobre el procesamiento de IA. Esto es crucial para mantener la soberanía de datos en un entorno universitario.
+    -   **Privacidad y Seguridad**: Al ejecutar los LLM localmente, todos los datos sensibles (conversaciones, análisis de contenido) permanecen dentro de la infraestructura controlada, cumpliendo con regulaciones de protección de datos.
+    -   **Preparado para la Nube (Cloud-Ready)**: Esta decisión nos prepara para desplegar la aplicación fácilmente en cualquier proveedor de la nube utilizando tecnologías como Kubernetes, con la opción de ejecutar los LLM en instancias dedicadas o contenedores.
 
 ## 6. Arquitectura de Testing: Jest + Testing Library
 

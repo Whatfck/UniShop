@@ -38,3 +38,24 @@ El backend está diseñado como un **monolito modular**. Aunque se ejecuta como 
 ## 3. Arquitectura del Frontend
 
 *(Esta sección se detallará más adelante. Se basará en una arquitectura de componentes reutilizables, posiblemente agrupados por funcionalidad o "features").*
+
+## 4. Arquitectura del Sistema de IA y Chatbot
+
+El sistema de IA está integrado como un módulo adicional dentro del monolito NestJS, manteniendo la coherencia arquitectónica mientras añade capacidades avanzadas de procesamiento de lenguaje natural.
+
+### Componentes del Sistema de IA:
+- **Chatbot Service**: Maneja las conversaciones con usuarios, utilizando modelos LLM locales para generar respuestas contextuales.
+- **Moderation Service**: Analiza contenido de publicaciones para detectar información de contacto no permitida o contenido inapropiado.
+- **Recommendation Service**: Utiliza embeddings vectoriales almacenados en pgvector para sugerir productos relacionados basados en similitud semántica.
+- **Training Service**: Gestiona el fine-tuning continuo del chatbot basado en conversaciones reales y feedback de usuarios.
+
+### Integración con LLM Local:
+- Los modelos de lenguaje (como Llama 2, Mistral o GPT-J) se ejecutan en contenedores dedicados o instancias locales.
+- La comunicación entre NestJS y los LLM se realiza a través de APIs REST locales o bibliotecas de integración (ej: llama.cpp, transformers.js).
+- Los datos sensibles nunca salen de la infraestructura local, garantizando privacidad y cumplimiento normativo.
+
+### Beneficios de esta Arquitectura:
+- **Privacidad de Datos**: Todo el procesamiento de IA permanece dentro del control de la institución.
+- **Bajos Costos Operativos**: No hay costos recurrentes por uso de APIs externas.
+- **Escalabilidad Modular**: El sistema de IA puede escalarse independientemente del resto de la aplicación.
+- **Mantenibilidad**: Al estar integrado en NestJS, sigue los mismos patrones y estándares del proyecto.

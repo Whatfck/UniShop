@@ -50,7 +50,7 @@ El proyecto ha completado exitosamente la **fase de desarrollo del backend** (~9
 ### 🚀 **Próximas Fases**
 1. **Desarrollo del Frontend** - React con TypeScript y Tailwind CSS
 2. **Integración Frontend-Backend** - Conectar APIs implementadas
-3. **Funcionalidades IA Avanzadas** - Integración con modelos OpenAI/GPT
+3. **Funcionalidades IA Avanzadas** - Integración con modelos LLM de código abierto ejecutados localmente
 4. **Testing E2E** - Pruebas de integración completas
 5. **Despliegue en Producción** - Configuración cloud-ready con Kubernetes
 6. **Monitoreo y Analytics** - Dashboards en tiempo real
@@ -151,7 +151,7 @@ Unishop/
 
 -   **Expansión:** Aunque inicialmente se enfoca en un solo campus, la arquitectura está diseñada para escalar a múltiples instituciones.
 -   **Nuevas Funcionalidades:** El diseño modular permitirá añadir fácilmente nuevas características como subastas, intercambios o módulos específicos por carrera.
--   **Inteligencia Artificial:** Se planea integrar IA para recomendaciones de productos, moderación de contenido y un chatbot de asistencia.
+-   **Inteligencia Artificial:** Se implementa IA con modelos LLM de código abierto ejecutados localmente para recomendaciones de productos, moderación de contenido y un chatbot de asistencia, garantizando privacidad y soberanía de datos.
 
 ---
 
