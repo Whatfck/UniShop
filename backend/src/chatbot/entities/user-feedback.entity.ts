@@ -10,10 +10,10 @@ export class UserFeedback {
   @JoinColumn({ name: 'conversationId' })
   conversation: Conversation;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   conversationId: number;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   userId: string;
 
   @Column({ type: 'int' })

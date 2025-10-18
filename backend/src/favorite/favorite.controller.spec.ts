@@ -1,3 +1,4 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { FavoriteController } from './favorite.controller';
 import { FavoriteService } from './favorite.service';
@@ -7,9 +8,9 @@ describe('FavoriteController', () => {
   let service: FavoriteService;
 
   const mockFavoriteService = {
-    addToFavorites: jest.fn(),
-    removeFromFavorites: jest.fn(),
-    getUserFavorites: jest.fn(),
+    addToFavorites: vi.fn(),
+    removeFromFavorites: vi.fn(),
+    getUserFavorites: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -26,7 +27,7 @@ describe('FavoriteController', () => {
     controller = module.get<FavoriteController>(FavoriteController);
     service = module.get<FavoriteService>(FavoriteService);
 
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should be defined', () => {

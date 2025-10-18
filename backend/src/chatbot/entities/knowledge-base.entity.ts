@@ -8,7 +8,7 @@ export class KnowledgeBase {
   @Column({ unique: true })
   topic: string;
 
-  @Column('text')
+  @Column({ type: 'text' })
   content: string;
 
   @Column({ nullable: true })

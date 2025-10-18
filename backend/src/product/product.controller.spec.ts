@@ -1,3 +1,4 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
@@ -7,14 +8,14 @@ describe('ProductController', () => {
   let service: ProductService;
 
   const mockProductService = {
-    create: jest.fn(),
-    findAll: jest.fn(),
-    findOne: jest.fn(),
-    update: jest.fn(),
-    remove: jest.fn(),
-    markAsSold: jest.fn(),
-    findByUser: jest.fn(),
-    findSoldByUser: jest.fn(),
+    create: vi.fn(),
+    findAll: vi.fn(),
+    findOne: vi.fn(),
+    update: vi.fn(),
+    remove: vi.fn(),
+    markAsSold: vi.fn(),
+    findByUser: vi.fn(),
+    findSoldByUser: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -31,7 +32,7 @@ describe('ProductController', () => {
     controller = module.get<ProductController>(ProductController);
     service = module.get<ProductService>(ProductService);
 
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should be defined', () => {

@@ -10,13 +10,13 @@ export class PhoneVerification {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   userId: string;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   phoneNumber: string;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   verificationCode: string;
 
   @Column({ default: false })

@@ -1,3 +1,4 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -13,44 +14,44 @@ describe('ProductService', () => {
   let phoneVerificationService: PhoneVerificationService;
 
   const mockProductRepository = {
-    create: jest.fn(),
-    save: jest.fn(),
-    findOne: jest.fn(),
-    find: jest.fn(),
-    update: jest.fn(),
-    delete: jest.fn(),
-    createQueryBuilder: jest.fn().mockReturnThis(),
-    leftJoinAndSelect: jest.fn().mockReturnThis(),
-    leftJoin: jest.fn().mockReturnThis(),
-    where: jest.fn().mockReturnThis(),
-    andWhere: jest.fn().mockReturnThis(),
-    select: jest.fn().mockReturnThis(),
-    orderBy: jest.fn().mockReturnThis(),
-    addOrderBy: jest.fn().mockReturnThis(),
-    take: jest.fn().mockReturnThis(),
-    getRawAndEntities: jest.fn(),
-    getMany: jest.fn(),
+    create: vi.fn(),
+    save: vi.fn(),
+    findOne: vi.fn(),
+    find: vi.fn(),
+    update: vi.fn(),
+    delete: vi.fn(),
+    createQueryBuilder: vi.fn().mockReturnThis(),
+    leftJoinAndSelect: vi.fn().mockReturnThis(),
+    leftJoin: vi.fn().mockReturnThis(),
+    where: vi.fn().mockReturnThis(),
+    andWhere: vi.fn().mockReturnThis(),
+    select: vi.fn().mockReturnThis(),
+    orderBy: vi.fn().mockReturnThis(),
+    addOrderBy: vi.fn().mockReturnThis(),
+    take: vi.fn().mockReturnThis(),
+    getRawAndEntities: vi.fn(),
+    getMany: vi.fn(),
   };
 
   const mockPhoneVerificationService = {
-    isPhoneVerified: jest.fn(),
+    isPhoneVerified: vi.fn(),
   };
 
   const mockMetricsService = {
-    incrementViews: jest.fn(),
-    incrementContacts: jest.fn(),
+    incrementViews: vi.fn(),
+    incrementContacts: vi.fn(),
   };
 
   const mockLogger = {
-    log: jest.fn(),
-    error: jest.fn(),
-    warn: jest.fn(),
-    debug: jest.fn(),
-    verbose: jest.fn(),
-    logUserAction: jest.fn(),
-    logProductModeration: jest.fn(),
-    logApiCall: jest.fn(),
-    logSecurityEvent: jest.fn(),
+    log: vi.fn(),
+    error: vi.fn(),
+    warn: vi.fn(),
+    debug: vi.fn(),
+    verbose: vi.fn(),
+    logUserAction: vi.fn(),
+    logProductModeration: vi.fn(),
+    logApiCall: vi.fn(),
+    logSecurityEvent: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -80,7 +81,7 @@ describe('ProductService', () => {
     productRepository = module.get<Repository<Product>>(getRepositoryToken(Product));
     phoneVerificationService = module.get<PhoneVerificationService>(PhoneVerificationService);
 
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should be defined', () => {

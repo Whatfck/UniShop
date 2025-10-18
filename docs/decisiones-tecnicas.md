@@ -49,13 +49,16 @@ Este documento registra y justifica las decisiones tecnológicas clave tomadas d
     -   **Privacidad y Seguridad**: Al ejecutar los LLM localmente, todos los datos sensibles (conversaciones, análisis de contenido) permanecen dentro de la infraestructura controlada, cumpliendo con regulaciones de protección de datos.
     -   **Preparado para la Nube (Cloud-Ready)**: Esta decisión nos prepara para desplegar la aplicación fácilmente en cualquier proveedor de la nube utilizando tecnologías como Kubernetes, con la opción de ejecutar los LLM en instancias dedicadas o contenedores.
 
-## 6. Arquitectura de Testing: Jest + Testing Library
+## 6. Arquitectura de Testing: Vitest + Testing Library
 
--   **Decisión**: Implementar testing completo con Jest para unitarias, integración y e2e, alcanzando 70%+ cobertura.
+-   **Decisión**: Implementar testing completo con Vitest para unitarias, integración y e2e, alcanzando 70%+ cobertura. Migrado de Jest por coherencia con el ecosistema Vite/React.
 -   **Justificación**:
-    -   **Calidad Garantizada**: 45 pruebas unitarias actualmente pasando, con cobertura completa de servicios críticos.
+    -   **Coherencia Tecnológica**: Vitest es el framework de testing nativo de Vite, usado en el frontend. Esto unifica el stack de testing completo.
+    -   **Rendimiento Superior**: Vitest es significativamente más rápido que Jest, especialmente en suites grandes, cumpliendo mejor con los RNF de rendimiento (500ms response time).
+    -   **Compatibilidad Total**: Vitest mantiene API compatible con Jest, permitiendo migración sin reescribir tests existentes.
+    -   **Calidad Garantizada**: 45+ pruebas unitarias actualmente pasando, con cobertura completa de servicios críticos.
     -   **Mantenibilidad**: Tests sirven como documentación viva y previenen regresiones durante el desarrollo.
-    -   **Integración Continua**: Base sólida para CI/CD pipelines futuros.
+    -   **Integración Continua**: Base sólida para CI/CD pipelines futuros con ejecución más rápida.
     -   **Desarrollo Guiado por Tests**: Asegura que nuevas funcionalidades sean testeables desde el inicio.
 
 ## 7. Documentación: Markdown + Swagger + TypeDoc

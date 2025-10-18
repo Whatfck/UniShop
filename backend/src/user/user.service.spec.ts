@@ -1,3 +1,4 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -19,33 +20,33 @@ describe('UserService', () => {
 
   // Creamos un mock del repositorio de usuarios
   const mockUserRepository = {
-    create: jest.fn(),
-    save: jest.fn(),
-    findOneBy: jest.fn(),
+    create: vi.fn(),
+    save: vi.fn(),
+    findOneBy: vi.fn(),
   };
 
   const mockProductRepository = {
-    count: jest.fn(),
-    createQueryBuilder: jest.fn().mockReturnThis(),
-    leftJoin: jest.fn().mockReturnThis(),
-    leftJoinAndSelect: jest.fn().mockReturnThis(),
-    select: jest.fn().mockReturnThis(),
-    addSelect: jest.fn().mockReturnThis(),
-    where: jest.fn().mockReturnThis(),
-    groupBy: jest.fn().mockReturnThis(),
-    addGroupBy: jest.fn().mockReturnThis(),
-    orderBy: jest.fn().mockReturnThis(),
-    take: jest.fn().mockReturnThis(),
-    getRawMany: jest.fn(),
-    getRawAndEntities: jest.fn(),
+    count: vi.fn(),
+    createQueryBuilder: vi.fn().mockReturnThis(),
+    leftJoin: vi.fn().mockReturnThis(),
+    leftJoinAndSelect: vi.fn().mockReturnThis(),
+    select: vi.fn().mockReturnThis(),
+    addSelect: vi.fn().mockReturnThis(),
+    where: vi.fn().mockReturnThis(),
+    groupBy: vi.fn().mockReturnThis(),
+    addGroupBy: vi.fn().mockReturnThis(),
+    orderBy: vi.fn().mockReturnThis(),
+    take: vi.fn().mockReturnThis(),
+    getRawMany: vi.fn(),
+    getRawAndEntities: vi.fn(),
   };
 
   const mockMetricRepository = {
-    createQueryBuilder: jest.fn().mockReturnThis(),
-    select: jest.fn().mockReturnThis(),
-    addSelect: jest.fn().mockReturnThis(),
-    where: jest.fn().mockReturnThis(),
-    getRawOne: jest.fn(),
+    createQueryBuilder: vi.fn().mockReturnThis(),
+    select: vi.fn().mockReturnThis(),
+    addSelect: vi.fn().mockReturnThis(),
+    where: vi.fn().mockReturnThis(),
+    getRawOne: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -71,7 +72,7 @@ describe('UserService', () => {
     userRepository = module.get<Repository<User>>(getRepositoryToken(User));
 
     // Limpiamos los mocks antes de cada test
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should be defined', () => {

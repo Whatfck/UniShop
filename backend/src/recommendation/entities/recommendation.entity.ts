@@ -5,10 +5,10 @@ export class Recommendation {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   userId!: number;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   productId!: number;
 
   @Column({ nullable: true })

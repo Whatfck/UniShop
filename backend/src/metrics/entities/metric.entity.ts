@@ -10,7 +10,7 @@ export class Metric {
   @JoinColumn({ name: 'productId' })
   product: Product;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   productId: number;
 
   @Column({ default: 0 })

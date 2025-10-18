@@ -17,14 +17,14 @@ export class Moderation {
   @JoinColumn({ name: 'productId' })
   product: Product;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   productId: number;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'moderatorId' })
   moderator: User;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   moderatorId: string;
 
   @Column({ type: 'enum', enum: ModerationStatus, default: ModerationStatus.PENDING })

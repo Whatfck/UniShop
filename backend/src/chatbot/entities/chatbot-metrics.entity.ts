@@ -14,10 +14,10 @@ export class ChatbotMetrics {
   @Column({ default: 0 })
   successfulResponses: number;
 
-  @Column('decimal', { precision: 6, scale: 2, nullable: true })
+  @Column({ type: 'decimal', { precision: 6, scale: 2, nullable: true })
   averageResponseTime?: number;
 
-  @Column('decimal', { precision: 3, scale: 2, nullable: true })
+  @Column({ type: 'decimal', { precision: 3, scale: 2, nullable: true })
   averageUserSatisfaction?: number;
 
   @Column('jsonb', { default: {} })

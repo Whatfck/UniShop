@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { CategoryService } from './category.service';
 import { Category } from './entities/category.entity';
 
@@ -9,12 +10,12 @@ describe('CategoryService', () => {
   let categoryRepository: Repository<Category>;
 
   const mockCategoryRepository = {
-    create: jest.fn(),
-    save: jest.fn(),
-    find: jest.fn(),
-    findOneBy: jest.fn(),
-    update: jest.fn(),
-    delete: jest.fn(),
+    create: vi.fn(),
+    save: vi.fn(),
+    find: vi.fn(),
+    findOneBy: vi.fn(),
+    update: vi.fn(),
+    delete: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -31,7 +32,7 @@ describe('CategoryService', () => {
     service = module.get<CategoryService>(CategoryService);
     categoryRepository = module.get<Repository<Category>>(getRepositoryToken(Category));
 
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should be defined', () => {

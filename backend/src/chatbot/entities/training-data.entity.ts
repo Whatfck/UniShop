@@ -5,10 +5,10 @@ export class TrainingData {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('text')
+  @Column({ type: 'text' })
   question: string;
 
-  @Column('text')
+  @Column({ type: 'text' })
   answer: string;
 
   @Column({ nullable: true })
@@ -20,7 +20,7 @@ export class TrainingData {
   @Column('jsonb', { default: [] })
   entities: any[];
 
-  @Column('decimal', { precision: 3, scale: 2, default: 0.8 })
+  @Column({ type: 'decimal', { precision: 3, scale: 2, default: 0.8 })
   confidenceScore: number;
 
   @Column({ default: 0 })

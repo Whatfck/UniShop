@@ -11,17 +11,17 @@ export class Contact {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   userId!: string;
 
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'productId' })
   product: Product;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   productId!: number;
 
-  @Column('text')
+  @Column({ type: 'text' })
   message!: string;
 
   @CreateDateColumn()

@@ -7,30 +7,30 @@ export class Product {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   name!: string;
 
-  @Column('text')
+  @Column({ type: 'text' })
   description!: string;
 
-  @Column('decimal', { precision: 10, scale: 2 })
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   price!: number;
 
   @ManyToOne(() => Category)
   @JoinColumn({ name: 'categoryId' })
   category: Category;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   categoryId!: number;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   userId!: string;
 
-  @Column('simple-array')
+  @Column({ type: 'simple-array' })
   images!: string[];
 
   @Column({ type: 'enum', enum: ['ACTIVE', 'SOLD', 'INACTIVE'], default: 'ACTIVE' })

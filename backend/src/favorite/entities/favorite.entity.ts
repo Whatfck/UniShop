@@ -11,14 +11,14 @@ export class Favorite {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   userId: string;
 
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'productId' })
   product: Product;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   productId: number;
 
   @CreateDateColumn()

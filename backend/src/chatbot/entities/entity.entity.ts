@@ -5,19 +5,19 @@ export class Entity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   entityName: string;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   entityType: string;
 
-  @Column('text')
+  @Column({ type: 'text' })
   entityValue: string;
 
   @Column('text', { array: true, default: [] })
   synonyms: string[];
 
-  @Column('decimal', { precision: 3, scale: 2, default: 1.0 })
+  @Column({ type: 'decimal', { precision: 3, scale: 2, default: 1.0 })
   confidence: number;
 
   @CreateDateColumn()

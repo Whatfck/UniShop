@@ -1,3 +1,4 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -9,11 +10,11 @@ describe('FavoriteService', () => {
   let favoriteRepository: Repository<Favorite>;
 
   const mockFavoriteRepository = {
-    create: jest.fn(),
-    save: jest.fn(),
-    delete: jest.fn(),
-    find: jest.fn(),
-    findOneBy: jest.fn(),
+    create: vi.fn(),
+    save: vi.fn(),
+    delete: vi.fn(),
+    find: vi.fn(),
+    findOneBy: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -30,7 +31,7 @@ describe('FavoriteService', () => {
     service = module.get<FavoriteService>(FavoriteService);
     favoriteRepository = module.get<Repository<Favorite>>(getRepositoryToken(Favorite));
 
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should be defined', () => {

@@ -68,7 +68,7 @@ El proyecto ha completado exitosamente la **fase de desarrollo del backend** (~9
 | **Autenticación** | **JWT + Passport**   | Tokens JWT con estrategia Passport.                |
 | **Validación** | **class-validator**  | Validaciones DTO robustas.                         |
 | **Documentación** | **Swagger**          | API documentada automáticamente.                   |
-| **Testing** | **Jest**             | 45+ pruebas unitarias implementadas.               |
+| **Testing** | **Vitest**           | 45+ pruebas unitarias implementadas, más rápido que Jest. |
 | **Logging** | **Winston**          | Logging estructurado con niveles configurables.    |
 | **Seguridad** | **Helmet + CORS**    | Headers de seguridad y control de origen.          |
 | **IA/ML** | **pgvector + NestJS** | Sistema completo de IA con embeddings y fine-tuning. |

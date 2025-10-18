@@ -5,16 +5,16 @@ export class Conversation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: "varchar", nullable: true })
   sessionId: string;
 
   @Column({ nullable: true })
   userId?: string;
 
-  @Column('text')
+  @Column({ type: 'text' })
   userMessage: string;
 
-  @Column('text')
+  @Column({ type: 'text' })
   botResponse: string;
 
   @Column({ nullable: true })
