@@ -1,69 +1,35 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useThemeStore } from './stores/theme';
-import { useAuthStore } from './stores/auth';
-import AuthProvider from './components/auth/AuthProvider';
-import LoginModal from './components/auth/LoginModal';
-import RegisterModal from './components/auth/RegisterModal';
-import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
-import ProductDetailPage from './pages/ProductDetailPage';
-import DashboardPage from './pages/DashboardPage';
-import SellProductPage from './pages/SellProductPage';
-import NotFoundPage from './pages/NotFoundPage';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
 function App() {
-  const { updateResolvedTheme } = useThemeStore();
-  const { isAuthenticated } = useAuthStore();
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
-
-  // Initialize theme on app start
-  useEffect(() => {
-    updateResolvedTheme();
-  }, [updateResolvedTheme]);
+  const [count, setCount] = useState(0)
 
   return (
-    <AuthProvider>
-      <Router>
-        <Layout
-          onLoginClick={() => setShowLoginModal(true)}
-          onRegisterClick={() => setShowRegisterModal(true)}
-        >
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/product/:id" element={<ProductDetailPage />} />
-            {isAuthenticated && (
-              <>
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/sell" element={<SellProductPage />} />
-              </>
-            )}
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Layout>
-
-        {/* Auth Modals */}
-        <LoginModal
-          isOpen={showLoginModal}
-          onClose={() => setShowLoginModal(false)}
-          onSwitchToRegister={() => {
-            setShowLoginModal(false);
-            setShowRegisterModal(true);
-          }}
-        />
-
-        <RegisterModal
-          isOpen={showRegisterModal}
-          onClose={() => setShowRegisterModal(false)}
-          onSwitchToLogin={() => {
-            setShowRegisterModal(false);
-            setShowLoginModal(true);
-          }}
-        />
-      </Router>
-    </AuthProvider>
-  );
+    <>
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
 }
 
-export default App;
+export default App
