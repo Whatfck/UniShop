@@ -171,10 +171,16 @@ Esta sección describe, a alto nivel, las páginas o vistas principales de la ap
 
 ### Vista 07: Flujo de Autenticación (Modal)
 -   **Funcionamiento:** En lugar de redirigir a páginas separadas, al hacer clic en "Iniciar Sesión" o "Registrarse", se abrirá un componente modal sobre la vista actual.
--   **Contenido del Modal:**
-    -   **Formulario de Registro:** Solicita nombre, correo institucional y contraseña (cubre **RF-01.1**).
-    -   **Formulario de Inicio de Sesión:** Solicita correo y contraseña con opción "Recordar dispositivo" (cubre **RF-01.2**).
-    -   **Flujo de Recuperación de Contraseña:** Enlace que inicia el proceso para restablecer la contraseña (cubre **RF-01.3**).
+-   **Modal de Registro:**
+    -   **Campos:** Nombre completo, correo institucional (@campusucc.edu.co), contraseña (mínimo 8 caracteres), confirmar contraseña.
+    -   **Validaciones:** Correo institucional obligatorio, contraseña segura, términos de uso.
+    -   **Funcionalidad:** Validación en tiempo real, mensajes de error específicos, enlace a "Iniciar Sesión".
+    -   **Cubre:** **RF-01.1** (registro con validación de dominio UCC).
+-   **Modal de Inicio de Sesión:**
+    -   **Campos:** Correo institucional, contraseña, checkbox "Recordar dispositivo".
+    -   **Funcionalidad:** Opción "¿Olvidaste tu contraseña?", enlace a "Crear cuenta".
+    -   **Cubre:** **RF-01.2** (autenticación por correo institucional).
+-   **Flujo de Recuperación de Contraseña:** Enlace que inicia el proceso para restablecer la contraseña (cubre **RF-01.3**).
 
 ### Vista 08: Página de Moderación (Exclusiva para rol `MODERADOR`)
 -   **Acceso:** Exclusivo a través del botón "Moderar" en el header, visible únicamente para usuarios con el rol de `MODERADOR`.

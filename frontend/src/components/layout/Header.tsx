@@ -11,9 +11,15 @@ interface HeaderProps {
   user?: {
     name: string;
     avatar?: string;
+    role?: 'USER' | 'MODERATOR' | 'ADMIN';
   };
   theme: Theme;
   onThemeToggle: () => void;
+  onLoginClick?: () => void;
+  onRegisterClick?: () => void;
+  onSellClick?: () => void;
+  onProfileClick?: () => void;
+  onLogoutClick?: () => void;
 }
 
 const Header = ({
@@ -23,7 +29,12 @@ const Header = ({
   isAuthenticated = false,
   user,
   theme,
-  onThemeToggle
+  onThemeToggle,
+  onLoginClick,
+  onRegisterClick,
+  onSellClick,
+  onProfileClick,
+  onLogoutClick
 }: HeaderProps) => {
   const [showMobileSearch, setShowMobileSearch] = useState(false);
 
@@ -40,7 +51,7 @@ const Header = ({
           <div className="flex-shrink-0">
             <a
               href="/"
-              className="text-2xl font-bold hover:opacity-80 transition-opacity"
+              className="text-2xl font-black hover:opacity-80 transition-opacity"
               style={{ color: 'var(--color-text-primary)' }}
             >
               <span style={{ color: 'var(--color-primary)' }}>Uni</span>
@@ -105,23 +116,65 @@ const Header = ({
 
             {isAuthenticated ? (
               <>
-                <Button variant="secondary" size="sm">
+                <Button variant="secondary" size="sm" onClick={onSellClick}>
                   Vender
                 </Button>
-                <div className="relative">
+                {user?.role === 'MODERATOR' && (
+                  <Button variant="outline" size="sm">
+                    Moderar
+                  </Button>
+                )}
+                <div className="relative group">
                   <img
                     src={user?.avatar || '/api/placeholder/40/40'}
                     alt="Perfil"
                     className="w-8 h-8 md:w-10 md:h-10 rounded-full cursor-pointer"
+                    onClick={onProfileClick}
                   />
+                  {/* Dropdown Menu */}
+                  <div className="absolute right-0 mt-2 w-48 bg-[var(--color-surface)] rounded-md shadow-lg border border-[var(--color-border)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="py-1">
+                      <button
+                        onClick={onProfileClick}
+                        className="block w-full text-left px-4 py-2 text-sm hover:bg-[var(--color-hover)] transition-colors"
+                        style={{ color: 'var(--color-text-primary)' }}
+                      >
+                        Ver Perfil Público
+                      </button>
+                      <button
+                        onClick={() => console.log('Panel de Usuario')}
+                        className="block w-full text-left px-4 py-2 text-sm hover:bg-[var(--color-hover)] transition-colors"
+                        style={{ color: 'var(--color-text-primary)' }}
+                      >
+                        Panel de Usuario
+                      </button>
+                      <div className="border-t border-[var(--color-border)] my-1"></div>
+                      <button
+                        onClick={onLogoutClick}
+                        className="block w-full text-left px-4 py-2 text-sm hover:bg-[var(--color-hover)] transition-colors"
+                        style={{ color: 'var(--color-text-primary)' }}
+                      >
+                        Cerrar Sesión
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </>
             ) : (
               <>
-                <Button variant="ghost" size="sm" className="hidden md:flex">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="hidden md:flex"
+                  onClick={onLoginClick}
+                >
                   Iniciar Sesión
                 </Button>
-                <Button variant="primary" size="sm">
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={onRegisterClick}
+                >
                   Registrarse
                 </Button>
               </>

@@ -16,6 +16,7 @@ export interface Product {
   updatedAt: Date;
   isFavorited?: boolean;
   tags?: string[];
+  status: 'ACTIVE' | 'SOLD' | 'INACTIVE';
 }
 
 export interface Seller {
@@ -28,6 +29,29 @@ export interface Seller {
   memberSince: Date;
 }
 
+// Backend API Product types
+export interface ApiProduct {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  category: {
+    id: number;
+    name: string;
+  };
+  categoryId: number;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  userId: string;
+  images: string[];
+  status?: 'ACTIVE' | 'SOLD' | 'INACTIVE';
+  createdAt: string;
+  updatedAt: string;
+}
+
 // Filter types
 export interface ProductFilters {
   category?: string;
@@ -36,6 +60,18 @@ export interface ProductFilters {
   condition?: 'new' | 'used';
   datePosted?: 'today' | 'week' | 'month';
   location?: string;
+}
+
+// Backend API Filter types
+export interface ApiFilters {
+  search?: string;
+  categoryId?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  status?: 'ACTIVE' | 'SOLD' | 'INACTIVE';
+  sortBy?: 'price' | 'createdAt' | 'views';
+  sortOrder?: 'ASC' | 'DESC';
+  limit?: number;
 }
 
 // Search types

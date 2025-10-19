@@ -14,7 +14,7 @@ import { ContactModule } from './src/contact/contact.module';
 import { PhoneVerificationModule } from './src/phone-verification/phone-verification.module';
 import { TagModule } from './src/tag/tag.module';
 import { RecommendationModule } from './src/recommendation/recommendation.module';
-import { ChatbotModule } from './src/chatbot/chatbot.module';
+// import { ChatbotModule } from './src/chatbot/chatbot.module'; // Desactivado temporalmente
 import { CustomLogger } from './src/common/logger.service';
 
 @Module({
@@ -32,7 +32,7 @@ import { CustomLogger } from './src/common/logger.service';
     PhoneVerificationModule,
     TagModule,
     RecommendationModule,
-    ChatbotModule,
+    // ChatbotModule, // Desactivado temporalmente
   ],
   controllers: [AppController],
   providers: [AppService, CustomLogger],

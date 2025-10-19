@@ -11,14 +11,17 @@ interface ProductCardProps {
   onContact?: () => void;
   onClick?: () => void;
   priority?: 'high' | 'low';
+  showContactButton?: boolean;
 }
 
 const ProductCard = ({
   product,
   isFavorited = false,
   onFavoriteToggle,
+  onContact,
   onClick,
-  priority = 'low'
+  priority = 'low',
+  showContactButton = false
 }: ProductCardProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -108,9 +111,36 @@ const ProductCard = ({
         >
           <div className="flex items-center gap-1">
             <MapPin className="h-4 w-4" />
-            <span>Campus Pasto</span>
+            <span>{product.location}</span>
           </div>
         </div>
+
+        <div className="flex items-center justify-between">
+          <div
+            className="flex items-center gap-2 text-sm"
+            style={{ color: 'var(--color-text-secondary)' }}
+          >
+            <span>{product.seller.name}</span>
+          </div>
+          <div
+            className="flex items-center gap-1 text-xs"
+            style={{ color: 'var(--color-text-secondary)' }}
+          >
+            <Clock className="h-3 w-3" />
+            <span>{new Date(product.createdAt).toLocaleDateString('es-CO')}</span>
+          </div>
+        </div>
+
+        {showContactButton && (
+          <Button
+            variant="primary"
+            size="sm"
+            className="w-full mt-3"
+            onClick={() => onContact?.()}
+          >
+            Contactar
+          </Button>
+        )}
 
 
       </div>

@@ -89,6 +89,7 @@ const ProductGrid = ({
           onClick={() => onProductClick?.(product)}
           onFavoriteToggle={() => onFavoriteToggle?.(product.id)}
           onContact={() => onContact?.(product)}
+          showContactButton={true}
         />
       ))}
     </div>

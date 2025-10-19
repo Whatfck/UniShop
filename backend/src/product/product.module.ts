@@ -7,6 +7,7 @@ import { CategoryModule } from '../category/category.module';
 import { UserModule } from '../user/user.module';
 import { PhoneVerificationModule } from '../phone-verification/phone-verification.module';
 import { MetricsModule } from '../metrics/metrics.module';
+import { CustomLogger } from '../common/logger.service';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { MetricsModule } from '../metrics/metrics.module';
     MetricsModule,
   ],
   controllers: [ProductController],
-  providers: [ProductService],
+  providers: [ProductService, CustomLogger],
   exports: [ProductService],
 })
 export class ProductModule {}

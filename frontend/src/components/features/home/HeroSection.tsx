@@ -1,7 +1,13 @@
 import { Button } from '../../ui';
 import { ShoppingBag, Users, TrendingUp, Star } from 'lucide-react';
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  onStartShopping?: () => void;
+  onSellProduct?: () => void;
+  isAuthenticated?: boolean;
+}
+
+const HeroSection = ({ onStartShopping, onSellProduct, isAuthenticated = false }: HeroSectionProps) => {
   return (
     <section
       className="relative py-16 md:py-24 lg:py-32 overflow-hidden"
@@ -35,21 +41,47 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button
-              size="lg"
-              className="bg-white text-[var(--color-primary)] hover:bg-white/90 px-8 py-4 text-lg font-semibold shadow-lg"
-            >
-              <ShoppingBag className="h-5 w-5 mr-2" />
-              Empezar a comprar
-            </Button>
+            {isAuthenticated ? (
+              <>
+                <Button
+                  size="lg"
+                  className="bg-white text-[var(--color-primary)] hover:bg-white/90 px-8 py-4 text-lg font-semibold shadow-lg"
+                  onClick={onStartShopping}
+                >
+                  <ShoppingBag className="h-5 w-5 mr-2" />
+                  Explorar productos
+                </Button>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-[var(--color-primary)] px-8 py-4 text-lg font-semibold"
-            >
-              Vender producto
-            </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-white text-white hover:bg-white hover:text-[var(--color-primary)] px-8 py-4 text-lg font-semibold"
+                  onClick={onSellProduct}
+                >
+                  Vender producto
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  size="lg"
+                  className="bg-white text-[var(--color-primary)] hover:bg-white/90 px-8 py-4 text-lg font-semibold shadow-lg"
+                  onClick={onStartShopping}
+                >
+                  <ShoppingBag className="h-5 w-5 mr-2" />
+                  Empezar a comprar
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-white text-white hover:bg-white hover:text-[var(--color-primary)] px-8 py-4 text-lg font-semibold"
+                  onClick={onSellProduct}
+                >
+                  Vender producto
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Trust Indicators */}

@@ -5,6 +5,8 @@ import { Header } from '../../components/layout';
 import { Button } from '../../components/ui';
 import { useTheme } from '../../hooks';
 import { mockProducts, getProductById } from '../../data/mockProducts';
+import { apiService } from '../../services/api';
+import { transformApiProduct } from '../../utils/apiTransformers';
 import type { Product } from '../../types';
 
 const ProductDetail = () => {
@@ -14,15 +16,39 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [isFavorited, setIsFavorited] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (id) {
-      const foundProduct = getProductById(id);
-      if (foundProduct) {
-        setProduct(foundProduct);
-        setIsFavorited(foundProduct.isFavorited || false);
+    const fetchProduct = async () => {
+      if (!id) return;
+
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // Try to fetch from API first
+        const apiProduct = await apiService.getProduct(Number(id));
+        const transformedProduct = transformApiProduct(apiProduct);
+        setProduct(transformedProduct);
+        setIsFavorited(transformedProduct.isFavorited || false);
+      } catch (apiError) {
+        console.warn('API not available, using mock data:', apiError);
+
+        // Fallback to mock data
+        const foundProduct = getProductById(id);
+        if (foundProduct) {
+          setProduct(foundProduct);
+          setIsFavorited(foundProduct.isFavorited || false);
+        } else {
+          setError('Producto no encontrado');
+        }
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
+
+    fetchProduct();
   }, [id]);
 
   const handleFavoriteToggle = () => {
@@ -30,12 +56,24 @@ const ProductDetail = () => {
     // TODO: Implement API call to toggle favorite
   };
 
-  const handleContact = () => {
+  const handleContact = async () => {
     if (!product) return;
 
-    const message = `Hola! Me interesa tu producto "${product.title}" que vi en UniShop. ¿Aún está disponible?`;
-    const whatsappUrl = `https://wa.me/57${product.seller.phoneVerified ? '3001234567' : '3001234567'}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    try {
+      // Record contact in backend
+      await apiService.recordContact(Number(product.id));
+
+      // Open WhatsApp
+      const message = `Hola! Me interesa tu producto "${product.title}" que vi en UniShop. ¿Aún está disponible?`;
+      const whatsappUrl = `https://wa.me/57${product.seller.phoneVerified ? '3001234567' : '3001234567'}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    } catch (error) {
+      console.error('Error recording contact:', error);
+      // Still open WhatsApp even if recording fails
+      const message = `Hola! Me interesa tu producto "${product.title}" que vi en UniShop. ¿Aún está disponible?`;
+      const whatsappUrl = `https://wa.me/57${product.seller.phoneVerified ? '3001234567' : '3001234567'}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
   };
 
   const handleShare = () => {
@@ -57,7 +95,28 @@ const ProductDetail = () => {
     console.log('Report product:', product?.id);
   };
 
-  if (!product) {
+  if (isLoading) {
+    return (
+      <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
+        <Header
+          searchQuery=""
+          onSearchChange={() => {}}
+          theme={theme}
+          onThemeToggle={toggleTheme}
+        />
+        <main className="max-w-full mx-auto py-16 px-4">
+          <div className="text-center">
+            <div className="animate-pulse">
+              <div className="h-8 bg-[var(--color-border)] rounded w-64 mx-auto mb-4"></div>
+              <div className="h-4 bg-[var(--color-border)] rounded w-48 mx-auto"></div>
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (error || !product) {
     return (
       <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
         <Header
@@ -69,7 +128,7 @@ const ProductDetail = () => {
         <main className="max-w-full mx-auto py-16 px-4">
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-4" style={{ color: 'var(--color-text-primary)' }}>
-              Producto no encontrado
+              {error || 'Producto no encontrado'}
             </h1>
             <Button onClick={() => navigate('/')}>
               Volver al inicio
@@ -176,7 +235,7 @@ const ProductDetail = () => {
               </div>
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
-                <span>Hace {Math.floor((Date.now() - product.createdAt.getTime()) / (1000 * 60 * 60 * 24))} días</span>
+                <span>Hace {Math.floor((Date.now() - new Date(product.createdAt).getTime()) / (1000 * 60 * 60 * 24))} días</span>
               </div>
             </div>
 
@@ -216,7 +275,7 @@ const ProductDetail = () => {
                   <div className="flex items-center gap-1">
                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                     <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
-                      {product.seller.rating} • Miembro desde {product.seller.memberSince.getFullYear()}
+                      {product.seller.rating} • Miembro desde {new Date(product.seller.memberSince).getFullYear()}
                     </span>
                   </div>
                 </div>

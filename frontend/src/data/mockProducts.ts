@@ -22,7 +22,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 días atrás
     updatedAt: new Date(),
     tags: ['calculadora', 'científica', 'casio', 'matemáticas', 'ingeniería'],
-    isFavorited: false
+    isFavorited: false,
+    status: 'ACTIVE'
   },
   {
     id: '2',
@@ -45,7 +46,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 días atrás
     updatedAt: new Date(),
     tags: ['libro', 'cálculo', 'matemáticas', 'stewart', 'ingeniería'],
-    isFavorited: true
+    isFavorited: true,
+    status: 'ACTIVE'
   },
   {
     id: '3',
@@ -68,7 +70,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 día atrás
     updatedAt: new Date(),
     tags: ['audífonos', 'sony', 'cancelación', 'ruido', 'inalámbricos'],
-    isFavorited: false
+    isFavorited: false,
+    status: 'ACTIVE'
   },
   {
     id: '4',
@@ -91,7 +94,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 días atrás
     updatedAt: new Date(),
     tags: ['mochila', 'laptop', 'dell', 'accesorios', 'estudiante'],
-    isFavorited: false
+    isFavorited: false,
+    status: 'ACTIVE'
   },
   {
     id: '5',
@@ -114,7 +118,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 días atrás
     updatedAt: new Date(),
     tags: ['herramientas', 'stanley', 'ingeniería', 'profesional', 'kit'],
-    isFavorited: true
+    isFavorited: true,
+    status: 'ACTIVE'
   },
   {
     id: '6',
@@ -137,7 +142,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000), // 6 días atrás
     updatedAt: new Date(),
     tags: ['cafetera', 'bialetti', 'café', 'cocina', 'hogar'],
-    isFavorited: false
+    isFavorited: false,
+    status: 'ACTIVE'
   },
   {
     id: '7',
@@ -160,7 +166,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 días atrás
     updatedAt: new Date(),
     tags: ['teclado', 'mecánico', 'logitech', 'inalámbrico', 'retroiluminado'],
-    isFavorited: false
+    isFavorited: false,
+    status: 'ACTIVE'
   },
   {
     id: '8',
@@ -183,7 +190,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 días atrás
     updatedAt: new Date(),
     tags: ['atlas', 'anatomía', 'netter', 'medicina', 'biología'],
-    isFavorited: true
+    isFavorited: true,
+    status: 'ACTIVE'
   },
   {
     id: '9',
@@ -206,7 +214,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 días atrás
     updatedAt: new Date(),
     tags: ['silla', 'ergonómica', 'escritorio', 'estudio', 'muebles'],
-    isFavorited: false
+    isFavorited: false,
+    status: 'ACTIVE'
   },
   {
     id: '10',
@@ -229,7 +238,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 días atrás
     updatedAt: new Date(),
     tags: ['pinturas', 'acrílicas', 'winsor', 'newton', 'arte', 'pinceles'],
-    isFavorited: false
+    isFavorited: false,
+    status: 'ACTIVE'
   },
   {
     id: '11',
@@ -252,7 +262,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 días atrás
     updatedAt: new Date(),
     tags: ['proyector', 'epson', 'presentaciones', 'académico', 'hdmi'],
-    isFavorited: true
+    isFavorited: true,
+    status: 'ACTIVE'
   },
   {
     id: '12',
@@ -275,7 +286,8 @@ export const mockProducts: Product[] = [
     createdAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000), // 6 días atrás
     updatedAt: new Date(),
     tags: ['bicicleta', 'montañera', 'specialized', 'deportes', 'universitaria'],
-    isFavorited: false
+    isFavorited: false,
+    status: 'ACTIVE'
   }
 ];
 

@@ -3,7 +3,7 @@
 -- =========================================
 
 -- Instalar pgvector (ejecutar como superusuario)
--- CREATE EXTENSION IF NOT EXISTS vector;
+CREATE EXTENSION IF NOT EXISTS vector;
 
 -- Verificar que pgvector esté instalado
 SELECT * FROM pg_extension WHERE extname = 'vector';
