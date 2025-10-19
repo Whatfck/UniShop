@@ -102,6 +102,35 @@ Este es el método más sencillo para levantar todo el entorno de desarrollo (Ba
     -   **Documentación de la API (Swagger):** http://localhost:8080/api/docs
     -   **Base de Datos (PostgreSQL):** `localhost:5432` (usuario: `unishop_user`, BD: `unishop_db`)
 
+### Acceso Público con Tailscale Funnel
+
+Para acceder a la aplicación desde cualquier lugar de forma segura y gratuita:
+
+1. **Instalar Tailscale** en tu máquina Windows:
+   - Descarga desde https://tailscale.com/download
+   - Instala y regístrate/inicia sesión en tu cuenta
+
+2. **Configurar Funnel**:
+   ```bash
+   # Conectar a tu tailnet
+   tailscale login
+
+   # Servir tu app local
+   tailscale serve https / http://localhost:5174
+
+   # Habilitar acceso público (funnel)
+   tailscale funnel 443
+   ```
+
+3. **Iniciar la aplicación**:
+   ```bash
+   make run
+   ```
+
+**Tu aplicación estará públicamente accesible en: `https://daniel-pc.tailbb818c.ts.net`**
+
+Para más detalles sobre el deployment con Docker y Tailscale, consulta [README-DOCKER.md](README-DOCKER.md).
+
 ### Ejecución Local (Backend)
 
 Si deseas ejecutar solo el backend localmente:
