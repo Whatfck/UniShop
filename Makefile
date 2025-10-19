@@ -1,7 +1,7 @@
 # UniShop - Full Stack Marketplace Application
 # Makefile for development, testing, and deployment tasks
 
-.PHONY: help install install-frontend install-backend dev dev-frontend dev-backend test test-backend test-frontend build build-frontend build-backend clean clean-frontend clean-backend lint lint-frontend lint-backend format format-frontend format-backend docker docker-build docker-run docker-stop migrate migrate-up migrate-down seed commit status
+.PHONY: help install install-frontend install-backend dev dev-frontend dev-backend test test-backend test-frontend build build-frontend build-backend clean clean-frontend clean-backend lint lint-frontend lint-backend format format-frontend format-backend docker docker-build docker-run docker-stop migrate migrate-up migrate-down seed status
 
 # Default target
 help: ## Show this help message
@@ -77,13 +77,97 @@ format-backend: ## Format backend code
 
 # Docker
 docker-build: ## Build Docker containers
-	docker-compose build
+	@if command -v docker-compose >/dev/null 2>&1; then \
+		docker-compose build; \
+	elif command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then \
+		docker compose build; \
+	else \
+		echo "❌ Docker Compose not found. Please install Docker Desktop."; \
+		echo "   Download: https://www.docker.com/products/docker-desktop"; \
+		exit 1; \
+	fi
 
 docker-run: ## Run Docker containers
+	@echo "🚀 Starting UniShop with Docker..."
+	@echo "📍 Frontend will be available at: http://localhost:5174"
+	@echo "🌐 After Cloudflare setup: https://your-domain.com"
+	@echo ""
 	docker-compose up -d
+	@echo ""
+	@echo "✅ Services started!"
+	@echo "🔍 Check status: make status"
+	@echo "🛑 Stop services: make stop"
+
+stop: docker-stop ## Stop all services
+
+restart: stop run ## Restart all services
 
 docker-stop: ## Stop Docker containers
+	@echo "🛑 Stopping Docker containers..."
 	docker-compose down
+	@echo "✅ Services stopped!"
+
+# Cloudflare Tunnel (Docker-based)
+tunnel-setup: ## Setup Cloudflare Tunnel for public access (Docker)
+	@echo "🌐 Cloudflare Tunnel setup instructions:"
+	@echo "1. Go to Cloudflare Zero Trust → Networks → Tunnels"
+	@echo "2. Create a new tunnel named 'unishop-tunnel'"
+	@echo "3. Choose 'Cloudflared' as connector"
+	@echo "4. Copy the tunnel token"
+	@echo "5. Add CLOUDFLARE_TUNNEL_TOKEN=your_token to .env file"
+	@echo "6. Run: make docker-run"
+
+tunnel-run: ## Run Cloudflare Tunnel (Docker)
+	@echo "🚀 Starting Cloudflare Tunnel via Docker..."
+	@echo "Make sure CLOUDFLARE_TUNNEL_TOKEN is set in .env"
+	@docker-compose up -d cloudflared
+
+# Domain Setup
+domain-setup: ## Setup domain for public access (requires domain as argument)
+	@echo "🌐 Setting up domain: $(domain)"
+	@if [ -z "$(domain)" ]; then \
+		echo "❌ Please provide a domain using 'make domain-setup domain=your-domain.com'"; \
+		exit 1; \
+	fi
+	@chmod +x scripts/setup-domain.sh
+	@./scripts/setup-domain.sh "$(domain)"
+
+# Pre-deployment Check
+check: ## Check all requirements before going public
+	@echo "🔍 Checking pre-deployment requirements..."
+	@chmod +x scripts/check-requirements.sh
+	@./scripts/check-requirements.sh
+
+# Quick Public Setup
+public: check docker-run ## Quick setup for public access (with checks)
+	@echo ""
+	@echo "🎉 UniShop is running locally!"
+	@echo "📱 Local access: http://localhost:5174/"
+	@echo ""
+	@echo "🌐 For worldwide access:"
+	@echo "1. Get a domain (e.g., unishop.yourdomain.com)"
+	@echo "2. Point it to Cloudflare nameservers"
+	@echo "3. Run: make domain-setup domain=your-domain.com"
+	@echo "4. Run: make tunnel-run"
+	@echo ""
+	@echo "📖 See README-DOCKER.md for detailed instructions"
+
+# SSL Certificates
+ssl-setup: ## Generate self-signed SSL certificates
+	@echo "🔒 Generating SSL certificates..."
+	@chmod +x scripts/setup-ssl.sh
+	@./scripts/setup-ssl.sh
+
+# Development
+dev-frontend: ## Start frontend development server
+	cd frontend && npm run dev -- --host
+
+# Quick deployment
+run: docker-run ## Quick start: build and run everything
+	@echo ""
+	@echo "🎉 UniShop is now running!"
+	@echo "📱 Local access: http://localhost:5174"
+	@echo "🌍 Public access: Configure TS_AUTHKEY in .env for worldwide access"
 
 # Database
 migrate: ## Run database migrations
@@ -98,18 +182,9 @@ migrate-down: ## Revert last migration
 seed: ## Seed database with initial data
 	cd backend && npm run seed
 
-# Git
-commit: ## Commit all changes with a message
-	@if [ -z "$(msg)" ]; then \
-		echo "Error: Please provide a commit message using 'make commit msg=\"your message\"'"; \
-		exit 1; \
-	fi
-	git add .
-	git commit -m "$(msg)"
-	git push
-
-status: ## Show git status
-	git status
+# Status
+status: ## Show Docker services status
+	docker-compose ps
 
 # Quick commands
 setup: install migrate seed ## Complete project setup
@@ -120,9 +195,6 @@ deploy: build docker-build docker-run ## Build and deploy with Docker
 
 # Health checks
 health-frontend: ## Check if frontend is running
-	@curl -s http://localhost:5173 > /dev/null && echo "✅ Frontend is running on http://localhost:5173" || echo "❌ Frontend is not running"
+	@curl -s http://localhost > /dev/null && echo "✅ Frontend is running on http://localhost:5174/" || echo "❌ Frontend is not running"
 
-health-backend: ## Check if backend is running
-	@curl -s http://localhost:8080/api/health > /dev/null && echo "✅ Backend is running on http://localhost:8080" || echo "❌ Backend is not running"
-
-health: health-frontend health-backend ## Check health of all services
+health: health-frontend

@@ -43,6 +43,16 @@ coverage/
 # Docker
 docker-compose.override.yml
 
+# Docker volumes and data (don't commit container data)
+postgres_data/
+redis_data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Tailscale state (don't commit)
+tailscale/
+
 # AI/ML specific
 # Model weights and embeddings (if stored locally)
 models/

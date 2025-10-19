@@ -2,7 +2,26 @@ import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [
-    tailwindcss(),
-  ],
+  plugins: [tailwindcss()],
+  server: {
+    host: '0.0.0.0',
+    port: 5174,
+    allowedHosts: [
+      'daniel-pc.tailbb818c.ts.net',
+      '.ts.net',
+      'localhost',
+      '127.0.0.1'
+    ]
+  },
+  preview: {
+    host: '0.0.0.0',
+    port: 5174,
+    allowedHosts: [
+      'daniel-pc.tailbb818c.ts.net',
+      '.ts.net',
+      'localhost',
+      '127.0.0.1'
+    ]
+  }
 })
+
