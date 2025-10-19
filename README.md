@@ -115,11 +115,11 @@ Para acceder a la aplicación desde cualquier lugar de forma segura y gratuita:
    # Conectar a tu tailnet
    tailscale login
 
-   # Servir tu app local
-   tailscale serve https / http://localhost:5174
-
    # Habilitar acceso público (funnel)
-   tailscale funnel 443
+   tailscale funnel --bg --yes --https=443 localhost:5174  
+
+   # Detener acceso público (funnel)
+   tailscale funnel --https=443 off
    ```
 
 3. **Iniciar la aplicación**:
