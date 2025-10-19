@@ -107,31 +107,6 @@ docker-stop: ## Stop Docker containers
 	docker-compose down
 	@echo "✅ Services stopped!"
 
-# Cloudflare Tunnel (Docker-based)
-tunnel-setup: ## Setup Cloudflare Tunnel for public access (Docker)
-	@echo "🌐 Cloudflare Tunnel setup instructions:"
-	@echo "1. Go to Cloudflare Zero Trust → Networks → Tunnels"
-	@echo "2. Create a new tunnel named 'unishop-tunnel'"
-	@echo "3. Choose 'Cloudflared' as connector"
-	@echo "4. Copy the tunnel token"
-	@echo "5. Add CLOUDFLARE_TUNNEL_TOKEN=your_token to .env file"
-	@echo "6. Run: make docker-run"
-
-tunnel-run: ## Run Cloudflare Tunnel (Docker)
-	@echo "🚀 Starting Cloudflare Tunnel via Docker..."
-	@echo "Make sure CLOUDFLARE_TUNNEL_TOKEN is set in .env"
-	@docker-compose up -d cloudflared
-
-# Domain Setup
-domain-setup: ## Setup domain for public access (requires domain as argument)
-	@echo "🌐 Setting up domain: $(domain)"
-	@if [ -z "$(domain)" ]; then \
-		echo "❌ Please provide a domain using 'make domain-setup domain=your-domain.com'"; \
-		exit 1; \
-	fi
-	@chmod +x scripts/setup-domain.sh
-	@./scripts/setup-domain.sh "$(domain)"
-
 # Pre-deployment Check
 check: ## Check all requirements before going public
 	@echo "🔍 Checking pre-deployment requirements..."
