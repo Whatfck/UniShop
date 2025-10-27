@@ -3,43 +3,39 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files
+# Copy package files and install all deps (including dev) for the build
 COPY package*.json ./
+RUN npm ci
 
-# Install dependencies
-RUN npm ci --only=production
+# Copy source and build
+COPY . .
+RUN npm run build
 
-# Production stage
-FROM node:20-alpine AS production
+# Remove dev dependencies to keep image small (produce production node_modules)
+RUN npm prune --production || true
+
+FROM node:18-alpine AS production
 
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-
-# Copy built dependencies from builder stage
+# Copy only what we need from builder
+COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
+COPY package*.json ./
+COPY healthcheck.js ./
 
-# Copy source code
-COPY . .
-
-# Build the application
-RUN npm run build
-
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nestjs -u 1001
-
-# Change ownership of the app directory
-RUN chown -R nestjs:nodejs /app
-USER nestjs
+# Create non-root user and set ownership
+RUN addgroup -g 1001 -S nodejs || true
+RUN adduser -S nestjs -u 1001 || true
+RUN chown -R 1001:1001 /app
+USER 1001
 
 # Expose port
 EXPOSE 8080
 
-# Health check
+# Health check (uses the bundled script)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node healthcheck.js
 
-# Start the application
-CMD ["npm", "run", "start:prod"]
+# Start the application (production build)
+CMD ["node", "dist/main"]

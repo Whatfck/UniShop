@@ -1,3 +1,15 @@
+// Ensure global crypto is available (some Node builds on minimal images may not expose Web Crypto)
+// @note: @nestjs/typeorm uses crypto.randomUUID() internally and can throw if crypto is undefined
+declare const global: any;
+if (typeof (globalThis as any).crypto === 'undefined') {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    (globalThis as any).crypto = require('crypto');
+  } catch (e) {
+    // ignore, runtime will show clearer error later
+  }
+}
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
@@ -96,7 +108,8 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document); // La UI de Swagger estará en /api/docs
 
   const port = configService.get<number>('PORT', 8080);
-  await app.listen(port);
+  // Bind to 0.0.0.0 so the server is reachable from other containers and IPv4 healthchecks
+  await app.listen(port, '0.0.0.0');
 
   customLogger.log(`Application is running on: ${await app.getUrl()}`, 'Bootstrap');
 }
