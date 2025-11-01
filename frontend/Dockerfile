@@ -1,39 +1,39 @@
-# Frontend Dockerfile for UniShop
+# ===== Base image =====
 FROM node:20-alpine
 
-# Install dumb-init for proper signal handling
+# Instala dumb-init para manejar correctamente las señales
 RUN apk add --no-cache dumb-init
 
-# Set working directory
+# Directorio de trabajo
 WORKDIR /app
 
-# Copy package files
+# Copiar archivos de dependencias
 COPY package*.json ./
+COPY tsconfig.json ./
 
-# Install dependencies
+# Instalar todas las dependencias (dev + prod) para build
 RUN npm ci
-RUN npm run build
-RUN npm prune --production
 
-# Copy source code
+# Copiar el resto del código fuente
 COPY . .
 
-# Build the application
+# Build de TypeScript + Vite
 RUN npm run build
 
-# Create non-root user
+# Opcional: eliminar devDependencies para reducir tamaño
+RUN npm prune --production || true
+
+# Crear usuario no-root
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001
-
-# Change ownership of the app directory
 RUN chown -R nextjs:nodejs /app
 USER nextjs
 
-# Expose port
+# Exponer el puerto que usa 'npm run preview'
 EXPOSE 5174
 
-# Use dumb-init to handle signals properly
+# Usar dumb-init para manejo correcto de señales
 ENTRYPOINT ["dumb-init", "--"]
 
-# Start the application
+# Ejecutar preview (sirve la app)
 CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "5174"]
