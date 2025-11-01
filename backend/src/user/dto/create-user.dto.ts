@@ -17,7 +17,6 @@ export class CreateUserDto {
 
   @ApiProperty({ example: 'john.doe@campusucc.edu.co', description: 'Correo institucional del usuario' })
   @IsEmail()
-  @Matches(/@campusucc\.edu\.co$/, { message: 'El correo debe ser institucional (@campusucc.edu.co)' })
   email: string;
 
   @ApiProperty({ example: 'Password123!', description: 'Contraseña del usuario (mínimo 8 caracteres)' })
@@ -29,4 +28,11 @@ export class CreateUserDto {
   @IsOptional()
   @IsUrl({}, { message: 'La URL de la foto de perfil no es válida' })
   profilePictureUrl?: string;
+}
+
+// Aplicar la validación del dominio salvo que se permita explícitamente registros no-institucionales
+// mediante la variable de entorno ALLOW_NON_INSTITUTIONAL_REGISTRATION=true
+if (process.env.ALLOW_NON_INSTITUTIONAL_REGISTRATION !== 'true') {
+  const _matches = Matches(/@campusucc\.edu\.co$/, { message: 'El correo debe ser institucional (@campusucc.edu.co)' });
+  _matches((CreateUserDto.prototype as any), 'email');
 }

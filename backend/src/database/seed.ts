@@ -5,10 +5,9 @@ import { TEST_USERS } from './test-users';
 import * as bcrypt from 'bcrypt';
 
 export async function seedDatabase(dataSource: DataSource) {
-  const categoryRepository = dataSource.getRepository(Category);
-  const userRepository = dataSource.getRepository(User);
-
-  console.log('🌱 Iniciando seeding de base de datos...');
+  // Use raw SQL in the seeding process to avoid issues with entity
+  // metadata loading order in the containerized environment.
+  console.log('🌱 Iniciando seeding de base de datos... (raw SQL)');
 
   // Crear categorías iniciales
   const categories = [
@@ -24,11 +23,11 @@ export async function seedDatabase(dataSource: DataSource) {
     { name: 'Otros', description: 'Categoría general para productos diversos' },
   ];
 
-  console.log('📂 Creando categorías...');
+  console.log('📂 Creando categorías (raw SQL)...');
   for (const categoryData of categories) {
-    const existingCategory = await categoryRepository.findOneBy({ name: categoryData.name });
-    if (!existingCategory) {
-      await categoryRepository.save(categoryRepository.create(categoryData));
+    const rows = await dataSource.query('SELECT id FROM categories WHERE name = $1', [categoryData.name]);
+    if (!rows || rows.length === 0) {
+      await dataSource.query('INSERT INTO categories(name) VALUES ($1)', [categoryData.name]);
       console.log(`✅ Categoría creada: ${categoryData.name}`);
     } else {
       console.log(`⏭️  Categoría ya existe: ${categoryData.name}`);
@@ -37,17 +36,11 @@ export async function seedDatabase(dataSource: DataSource) {
 
   // Crear usuario administrador
   const adminEmail = 'admin@campusucc.edu.co';
-  const existingAdmin = await userRepository.findOneBy({ email: adminEmail });
-
-  if (!existingAdmin) {
+    const existingAdminRows = await dataSource.query('SELECT id FROM users WHERE email = $1', [adminEmail]);
+  if (!existingAdminRows || existingAdminRows.length === 0) {
     const hashedPassword = await bcrypt.hash('Admin123!', 10);
-    const admin = userRepository.create({
-      name: 'Administrador',
-      email: adminEmail,
-      password: hashedPassword,
-      role: UserRole.ADMIN,
-    });
-    await userRepository.save(admin);
+    // Use quoted column names for case-sensitive columns created by migrations
+    await dataSource.query('INSERT INTO users(name,email,password,role,"createdAt","updatedAt") VALUES ($1,$2,$3,$4,now(),now())', ['Administrador', adminEmail, hashedPassword, UserRole.ADMIN]);
     console.log('👑 Usuario administrador creado');
   } else {
     console.log('⏭️  Usuario administrador ya existe');
@@ -55,17 +48,10 @@ export async function seedDatabase(dataSource: DataSource) {
 
   // Crear usuario moderador
   const moderatorEmail = 'moderador@campusucc.edu.co';
-  const existingModerator = await userRepository.findOneBy({ email: moderatorEmail });
-
-  if (!existingModerator) {
+    const existingModeratorRows = await dataSource.query('SELECT id FROM users WHERE email = $1', [moderatorEmail]);
+  if (!existingModeratorRows || existingModeratorRows.length === 0) {
     const hashedPassword = await bcrypt.hash('Moderador123!', 10);
-    const moderator = userRepository.create({
-      name: 'Moderador',
-      email: moderatorEmail,
-      password: hashedPassword,
-      role: UserRole.MODERATOR,
-    });
-    await userRepository.save(moderator);
+    await dataSource.query('INSERT INTO users(name,email,password,role,"createdAt","updatedAt") VALUES ($1,$2,$3,$4,now(),now())', ['Moderador', moderatorEmail, hashedPassword, UserRole.MODERATOR]);
     console.log('🛡️  Usuario moderador creado');
   } else {
     console.log('⏭️  Usuario moderador ya existe');
@@ -74,17 +60,10 @@ export async function seedDatabase(dataSource: DataSource) {
   // Crear usuarios de prueba desde test-users.ts
   console.log('👥 Creando usuarios de prueba...');
   for (const testUser of TEST_USERS) {
-    const existingUser = await userRepository.findOneBy({ email: testUser.email });
-    if (!existingUser) {
+    const existingUserRows = await dataSource.query('SELECT id FROM users WHERE email = $1', [testUser.email]);
+    if (!existingUserRows || existingUserRows.length === 0) {
       const hashedPassword = await bcrypt.hash(testUser.password, 10);
-      const user = userRepository.create({
-        name: testUser.name,
-        email: testUser.email,
-        password: hashedPassword,
-        role: testUser.role,
-        // phoneVerified se maneja en el sistema de verificación de teléfono
-      });
-      await userRepository.save(user);
+  await dataSource.query('INSERT INTO users(name,email,password,role,"createdAt","updatedAt") VALUES ($1,$2,$3,$4,now(),now())', [testUser.name, testUser.email, hashedPassword, testUser.role]);
       console.log(`✅ Usuario creado: ${testUser.name} (${testUser.role})`);
     } else {
       console.log(`⏭️  Usuario ya existe: ${testUser.name}`);

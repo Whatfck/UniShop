@@ -90,8 +90,9 @@ status: ## Show Docker services status
 	docker-compose ps
 
 # Database
-migrate: ## Run database migrations
-	cd backend && npm run migration:run
+migrate: ## Run database migrations inside the backend container (robust)
+	@echo "🔁 Ejecutando migraciones dentro del contenedor backend..."
+	@docker compose exec backend node -e "(async()=>{ try{ const AppDataSource=require('./dist/ormconfig').default || require('./dist/ormconfig.js').default; await AppDataSource.initialize(); await AppDataSource.runMigrations(); await AppDataSource.destroy(); console.log('✅ Migrations ejecutadas'); }catch(e){ console.error(e); process.exit(1);} })()"
 
 migrate-up: ## Create and run a new migration
 	cd backend && npm run migration:generate -- -n $(name)
@@ -99,8 +100,9 @@ migrate-up: ## Create and run a new migration
 migrate-down: ## Revert last migration
 	cd backend && npm run migration:revert
 
-seed: ## Seed database with initial data
-	cd backend && npm run seed
+seed: ## Seed database with initial data inside the backend container (robust)
+	@echo "🌱 Ejecutando seed dentro del contenedor backend..."
+	@docker compose exec backend node dist/src/database/seed.command.js || (echo "Failed to run seed inside container" && exit 1)
 
 # Quick commands
 setup: install migrate seed ## Complete project setup

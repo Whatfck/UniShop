@@ -14,7 +14,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [__dirname + '/../**/*.entity{.js}'],
+        entities: configService.get<string>('NODE_ENV') === 'production'
+          ? ['dist/**/*.entity.js']
+          : ['src/**/*.entity{.ts,.js}'],
+        migrations: configService.get<string>('NODE_ENV') === 'production'
+          ? ['dist/src/migrations/*{.js}']
+          : ['src/migrations/*{.ts,.js}'],
         synchronize: configService.get<string>('NODE_ENV') !== 'production', // Solo sincronizar en desarrollo
         logging: configService.get<string>('NODE_ENV') === 'development', // Logging solo en desarrollo
         // Configuraciones de producción para mejor rendimiento

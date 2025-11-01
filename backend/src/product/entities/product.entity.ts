@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { Category } from '../../category/entities/category.entity';
+import { Metric } from '../../metrics/entities/metric.entity';
 
 @Entity('products')
 export class Product {
@@ -35,6 +36,9 @@ export class Product {
 
   @Column({ type: 'enum', enum: ['ACTIVE', 'SOLD', 'INACTIVE'], default: 'ACTIVE' })
   status!: 'ACTIVE' | 'SOLD' | 'INACTIVE';
+
+  @OneToMany(() => Metric, (metric) => metric.product)
+  metrics?: Metric[];
 
   @CreateDateColumn()
   createdAt: Date;

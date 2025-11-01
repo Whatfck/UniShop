@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+// API base: asegurar que incluya el prefijo global '/api/v1' usado por el backend
+const RAW_API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+const API_BASE_URL = RAW_API_URL.endsWith('/') ? `${RAW_API_URL}api/v1` : `${RAW_API_URL}/api/v1`;
 
 export interface ApiProduct {
   id: number;

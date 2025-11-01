@@ -8,8 +8,14 @@ const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME || 'unishop_user',
   password: process.env.DB_PASSWORD || 'unishop_password',
   database: process.env.DB_NAME || 'unishop_db',
-  entities: ['src/**/*.entity{.ts,.js}'],
-  migrations: ['src/migrations/*{.ts,.js}'],
+  // Use compiled `dist` paths when running the production build inside Docker,
+  // otherwise use `src` patterns for local development / ts-node.
+  entities: process.env.NODE_ENV === 'production'
+    ? ['dist/**/*.entity.js']
+    : ['src/**/*.entity{.ts,.js}'],
+  migrations: process.env.NODE_ENV === 'production'
+    ? ['dist/src/migrations/*{.js}']
+    : ['src/migrations/*{.ts,.js}'],
   synchronize: false, // Deshabilitado para usar migraciones
   logging: true,
 });
