@@ -25,36 +25,31 @@ El proyecto ha completado exitosamente la **fase de desarrollo del backend** (~9
 -   ✅ **Stack Tecnológico** seleccionado y justificado.
 
 ### 🚧 **Fase de Desarrollo Backend - EN PROGRESO**
--   🔄 **API REST completa** con 70+ endpoints documentados en Swagger (migración a Java en proceso)
--   🔄 **Autenticación JWT** con roles (USER, MODERATOR, ADMIN) (migración a Spring Security en proceso)
--   🔄 **Gestión completa de productos** con moderación automática (migración en proceso)
--   🔄 **Sistema de categorías** con control de acceso (migración en proceso)
--   🔄 **Panel de moderación** para usuarios MODERATOR (migración en proceso)
--   🔄 **Estadísticas avanzadas** para vendedores (migración en proceso)
--   🔄 **Búsqueda y filtros** avanzados con ordenamiento (migración en proceso)
--   🔄 **Sistema de favoritos** y métricas de productos (migración en proceso)
--   🔄 **Verificación de teléfono** y contacto WhatsApp (migración en proceso)
--   🔄 **Recomendaciones inteligentes** basadas en popularidad (migración en proceso)
--   🔄 **Chatbot IA completo** con procesamiento local gratuito (migración en proceso)
--   🔄 **Sistema de IA avanzado** con 15 tablas especializadas (migración en proceso)
--   🔄 **Fine-tuning continuo** del chatbot con aprendizaje automático (migración en proceso)
--   🔄 **Base de conocimientos semántica** preparada para pgvector (migración en proceso)
--   🔄 **Entrenamiento automático** desde conversaciones reales (migración en proceso)
--   🔄 **Detección de intents** y extracción de entidades (migración en proceso)
--   🔄 **Seguridad avanzada** (Spring Security, CORS, timeouts, compresión) (migración en proceso)
--   🔄 **Base de datos optimizada** con PostgreSQL y Hibernate (migración en proceso)
--   🔄 **Testing completo** con pruebas unitarias pasando (migración a JUnit en proceso)
--   🔄 **Logging personalizado** con SLF4J + Logback y auditoría completa (migración en proceso)
--   🔄 **Documentación técnica** completa y actualizada (migración en proceso)
+-   🔄 **API REST completa** con endpoints esenciales documentados en Swagger
+-   🔄 **Autenticación JWT** con roles (USER, MODERATOR, ADMIN) usando Spring Security
+-   🔄 **Gestión completa de productos** con moderación manual
+-   🔄 **Sistema de categorías** con control de acceso
+-   🔄 **Panel de moderación** para usuarios MODERATOR
+-   🔄 **Historial de productos** (activo/vendido) para vendedores
+-   🔄 **Búsqueda y filtros** básicos con ordenamiento
+-   🔄 **Sistema de favoritos** sin métricas avanzadas
+-   🔄 **Verificación de teléfono** y contacto WhatsApp
+-   🔄 **Recomendaciones simples** basadas en categoría/popularidad
+-   🔄 **Chatbot básico** con respuestas predefinidas
+-   🔄 **Seguridad avanzada** (Spring Security, CORS, timeouts, compresión)
+-   🔄 **Base de datos optimizada** con PostgreSQL y Hibernate
+-   🔄 **Testing básico** con JUnit
+-   🔄 **Logging personalizado** con SLF4J + Logback
+-   🔄 **Documentación técnica** completa y actualizada
 
 ### 🚀 **Próximas Fases**
-1. **Migración del Backend a Java** - Convertir la API REST de NestJS a Spring Boot
+1. **Migración del Backend a Java** - Crear API REST en Spring Boot con funcionalidades core
 2. **Desarrollo del Frontend** - React con TypeScript y Tailwind CSS
-3. **Integración Frontend-Backend** - Conectar APIs implementadas
-4. **Funcionalidades IA Avanzadas** - Integración con modelos LLM de código abierto ejecutados localmente
-5. **Testing E2E** - Pruebas de integración completas
-6. **Despliegue en Producción** - Configuración cloud-ready con Kubernetes
-7. **Monitoreo y Analytics** - Dashboards en tiempo real
+3. **Integración Frontend-Backend** - Conectar APIs via HTTPS
+4. **Funcionalidades IA Básicas** - Servicio Python/FastAPI para recomendaciones y chatbot
+5. **Testing Básico** - Pruebas unitarias con JUnit
+6. **Despliegue en VM** - Configuración con Docker y Portainer
+7. **Monitoreo Básico** - Logs y health checks
 
 ---
 
@@ -181,7 +176,7 @@ Unishop/
 
 -   **Expansión:** Aunque inicialmente se enfoca en un solo campus, la arquitectura está diseñada para escalar a múltiples instituciones.
 -   **Nuevas Funcionalidades:** El diseño modular permitirá añadir fácilmente nuevas características como subastas, intercambios o módulos específicos por carrera.
--   **Inteligencia Artificial:** Se implementa IA con modelos LLM de código abierto ejecutados localmente para recomendaciones de productos, moderación de contenido y un chatbot de asistencia, garantizando privacidad y soberanía de datos. (Migración a Java en proceso)
+-   **Inteligencia Artificial:** Servicio separado Python/FastAPI con recomendaciones simples y chatbot básico, ejecutado localmente para privacidad.
 
 ---
 

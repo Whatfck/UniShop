@@ -4,21 +4,25 @@ Este documento describe la arquitectura general de la aplicación Unishop, expli
 
 ---
 
-## 1. Visión General: Arquitectura de 3 Capas (3-Tier)
+## 1. Visión General: Arquitectura de 3 Capas (3-Tier) + IA
 
 Unishop sigue un patrón de **arquitectura de 3 capas**, que es un estándar en la industria para aplicaciones web escalables. Esto separa las responsabilidades de manera clara:
 
 1.  **Capa de Presentación (Frontend)**:
     -   **Tecnología**: React con TypeScript.
-    -   **Responsabilidad**: Renderizar la interfaz de usuario, gestionar el estado local de la UI y comunicarse con la capa de lógica a través de una API REST. Es un cliente "liviano" que consume los servicios del backend.
+    -   **Responsabilidad**: Renderizar la interfaz de usuario, gestionar el estado local de la UI y comunicarse con la capa de lógica a través de una API REST encriptada (HTTPS). Es un cliente "aislado" que consume servicios del backend sin acceso directo a la base de datos.
 
 2.  **Capa de Lógica de Negocio (Backend)**:
-    -   **Tecnología**: NestJS (TypeScript).
-    -   **Responsabilidad**: Contiene toda la lógica de negocio de la aplicación. Expone una API REST que el frontend consume. Gestiona la autenticación, validaciones, y orquesta las operaciones con la base de datos.
+    -   **Tecnología**: Spring Boot (Java).
+    -   **Responsabilidad**: Contiene toda la lógica de negocio de la aplicación. Expone una API REST que el frontend consume. Gestiona la autenticación, validaciones, y orquesta las operaciones con la base de datos. Incluye integración básica con IA para recomendaciones y chatbot.
 
 3.  **Capa de Datos (Base de Datos)**:
     -   **Tecnología**: PostgreSQL.
     -   **Responsabilidad**: Persistir y gestionar los datos de la aplicación de forma segura y eficiente. El backend es el único componente que tiene acceso directo a esta capa.
+
+4.  **Capa de IA (Opcional/Separada)**:
+    -   **Tecnología**: Servicio Python/FastAPI (ligero, local).
+    -   **Responsabilidad**: Proporciona funcionalidades de IA básicas (recomendaciones por reglas, chatbot con respuestas predefinidas). Se comunica con el backend via API REST interna.
 
 
 
@@ -33,29 +37,33 @@ El backend está diseñado como un **monolito modular**. Aunque se ejecuta como 
 -   **Escalabilidad**: Si el proyecto crece, estos módulos bien definidos son candidatos perfectos para ser extraídos a **microservicios** con un esfuerzo mínimo.
 -   **Desarrollo en Paralelo**: Facilita que diferentes desarrolladores (o equipos) trabajen en distintos módulos sin interferir entre sí.
 
+### Comunicación con IA:
+- El backend se comunica con el servicio de IA via HTTP interno (localhost), manteniendo el frontend completamente aislado de la lógica de IA.
+
 ---
 
 ## 3. Arquitectura del Frontend
 
-*(Esta sección se detallará más adelante. Se basará en una arquitectura de componentes reutilizables, posiblemente agrupados por funcionalidad o "features").*
+El frontend está diseñado como una **SPA (Single Page Application)** completamente aislada del backend y la base de datos. Se comunica únicamente a través de APIs REST encriptadas (HTTPS), sin conocimiento directo de la lógica de negocio o datos.
 
-## 4. Arquitectura del Sistema de IA y Chatbot
+### Principios de Diseño:
+- **Aislamiento Total**: El frontend no tiene acceso directo a BD ni lógica de IA. Todo pasa por el backend.
+- **API-First**: Desarrollado pensando en la API como contrato principal.
+- **Encriptación**: Toda comunicación con backend usa HTTPS para seguridad.
 
-El sistema de IA está integrado como un módulo adicional dentro del monolito NestJS, manteniendo la coherencia arquitectónica mientras añade capacidades avanzadas de procesamiento de lenguaje natural.
+## 4. Arquitectura del Sistema de IA
 
-### Componentes del Sistema de IA:
-- **Chatbot Service**: Maneja las conversaciones con usuarios, utilizando modelos LLM locales para generar respuestas contextuales.
-- **Moderation Service**: Analiza contenido de publicaciones para detectar información de contacto no permitida o contenido inapropiado.
-- **Recommendation Service**: Utiliza embeddings vectoriales almacenados en pgvector para sugerir productos relacionados basados en similitud semántica.
-- **Training Service**: Gestiona el fine-tuning continuo del chatbot basado en conversaciones reales y feedback de usuarios.
+El sistema de IA es un **servicio separado** (Python/FastAPI) que se ejecuta de forma independiente del backend principal. Esto mantiene la simplicidad del MVP mientras permite funcionalidades básicas de IA.
 
-### Integración con LLM Local:
-- Los modelos de lenguaje (como Llama 2, Mistral o GPT-J) se ejecutan en contenedores dedicados o instancias locales.
-- La comunicación entre NestJS y los LLM se realiza a través de APIs REST locales o bibliotecas de integración (ej: llama.cpp, transformers.js).
-- Los datos sensibles nunca salen de la infraestructura local, garantizando privacidad y cumplimiento normativo.
+### Componentes del Sistema de IA (MVP):
+- **Recommendation Service**: Sugiere productos relacionados basados en reglas simples (categoría, popularidad).
+- **Chatbot Service**: Responde preguntas frecuentes con lógica basada en reglas y respuestas predefinidas.
+
+### Comunicación:
+- El backend (Spring Boot) se comunica con el servicio IA via HTTP interno (localhost), manteniendo el frontend completamente aislado.
+- El servicio IA no expone endpoints públicos; solo el backend puede acceder.
 
 ### Beneficios de esta Arquitectura:
-- **Privacidad de Datos**: Todo el procesamiento de IA permanece dentro del control de la institución.
-- **Bajos Costos Operativos**: No hay costos recurrentes por uso de APIs externas.
-- **Escalabilidad Modular**: El sistema de IA puede escalarse independientemente del resto de la aplicación.
-- **Mantenibilidad**: Al estar integrado en NestJS, sigue los mismos patrones y estándares del proyecto.
+- **Simplicidad**: IA separada no complica el backend principal.
+- **Aislamiento**: Frontend nunca toca lógica de IA directamente.
+- **Escalabilidad**: Fácil agregar más IA después sin afectar el core.

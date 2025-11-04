@@ -1,41 +1,28 @@
-# Build stage
-FROM node:18-alpine AS builder
+# Use OpenJDK 17 as base image
+FROM openjdk:17-jdk-slim
 
+# Set working directory
 WORKDIR /app
 
-# Copy package files and install all deps (including dev) for the build
-COPY package*.json ./
-RUN npm ci
+# Copy Maven wrapper and pom.xml
+COPY .mvn/ .mvn/
+COPY mvnw pom.xml ./
 
-# Copy source and build
-COPY . .
-RUN npm run build
+# Download dependencies (this layer will be cached if pom.xml doesn't change)
+RUN ./mvnw dependency:go-offline -B
 
-# Remove dev dependencies to keep image small (produce production node_modules)
-RUN npm prune --production || true
+# Copy source code
+COPY src ./src
 
-FROM node:18-alpine AS production
-
-WORKDIR /app
-
-# Copy only what we need from builder
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY package*.json ./
-COPY healthcheck.js ./
-
-# Create non-root user and set ownership
-RUN addgroup -g 1001 -S nodejs || true
-RUN adduser -S nestjs -u 1001 || true
-RUN chown -R 1001:1001 /app
-USER 1001
+# Build the application
+RUN ./mvnw clean package -DskipTests
 
 # Expose port
 EXPOSE 8080
 
-# Health check (uses the bundled script)
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node healthcheck.js
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD curl -f http://localhost:8080/api/v1/actuator/health || exit 1
 
-# Start the application (production build)
-CMD ["node", "dist/main"]
+# Run the application
+CMD ["java", "-jar", "target/backend-1.0.0.jar"]

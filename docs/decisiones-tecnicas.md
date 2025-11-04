@@ -4,13 +4,14 @@ Este documento registra y justifica las decisiones tecnológicas clave tomadas d
 
 ---
 
-## 1. Backend: NestJS (TypeScript)
+## 1. Backend: Spring Boot (Java)
 
--   **Decisión**: Usar NestJS en lugar de Spring Boot (Java).
+-   **Decisión**: Cambiar de NestJS a Spring Boot (Java) para alinearse con requerimientos del proyecto.
 -   **Justificación**:
-    -   **Unificación del Lenguaje**: Utilizar TypeScript tanto en el backend como en el frontend (React) reduce la carga cognitiva y simplifica el desarrollo. Permite compartir código, especialmente tipos y DTOs, garantizando la consistencia entre ambas capas.
-    -   **Arquitectura Robusta**: NestJS promueve una arquitectura modular y en capas (Controllers, Services, Modules) muy similar a la de Spring, lo que facilita la organización y escalabilidad del código desde el principio.
-    -   **Ecosistema Moderno**: Se integra de forma nativa con herramientas modernas del ecosistema de Node.js como TypeORM/Prisma, Jest para testing y Swagger para la documentación de APIs.
+    -   **Requisito Específico**: El backend debe ser desarrollado en Java según especificaciones del proyecto.
+    -   **Madurez Empresarial**: Spring Boot es el framework Java más utilizado en la industria, con excelente soporte para APIs REST, seguridad y ORM.
+    -   **Arquitectura Robusta**: Proporciona inyección de dependencias, controladores REST, servicios y repositorios de forma nativa.
+    -   **Ecosistema Completo**: Integración perfecta con Hibernate (ORM), Spring Security (JWT), Swagger y testing con JUnit.
 
 ## 2. Base de Datos: PostgreSQL
 
@@ -36,30 +37,26 @@ Este documento registra y justifica las decisiones tecnológicas clave tomadas d
     -   **Seguridad de Tipos**: TypeScript añade un sistema de tipado estático que previene una gran cantidad de errores comunes en tiempo de desarrollo, mejorando la calidad y mantenibilidad del código.
     -   **Ecosistema y Comunidad**: React tiene uno de los ecosistemas más grandes y una comunidad muy activa, lo que asegura soporte y una gran cantidad de librerías disponibles.
 
-## 5. Sistema de IA: PostgreSQL + pgvector + NestJS + LLM Open Source Local
+## 5. Sistema de IA: Servicio Separado Python/FastAPI
 
--   **Decisión**: Implementar un sistema completo de IA usando PostgreSQL con pgvector para embeddings, integrado en el backend NestJS, y utilizar modelos de lenguaje de gran escala (LLM) de código abierto ejecutados localmente para funcionalidades avanzadas de IA.
+-   **Decisión**: Implementar IA como servicio separado (Python/FastAPI) con modelos ligeros, manteniendo simplicidad para MVP universitario.
 -   **Justificación**:
-    -   **Base de Datos Unificada**: Mantener todos los datos (aplicación + IA) en una sola base de datos PostgreSQL simplifica la arquitectura y reduce la complejidad operativa.
-    -   **Búsqueda Semántica**: pgvector permite almacenar y buscar embeddings vectoriales directamente en PostgreSQL, eliminando la necesidad de servicios externos para esta funcionalidad.
-    -   **Escalabilidad**: PostgreSQL puede manejar tanto datos relacionales como vectoriales eficientemente, preparándonos para crecimiento futuro.
-    -   **Integración Nativa**: Al estar dentro del backend NestJS, el sistema de IA puede acceder directamente a todas las métricas y datos de la aplicación para fine-tuning continuo.
-    -   **Cost-Effective**: No requiere servicios externos costosos para funcionalidades básicas de IA, manteniendo los costos bajos mientras se prepara para escalar.
-    -   **LLM Open Source Local**: Utilizar modelos como Llama, Mistral o GPT-J ejecutados localmente garantiza privacidad de datos, evita costos de API externos y permite un control total sobre el procesamiento de IA. Esto es crucial para mantener la soberanía de datos en un entorno universitario.
-    -   **Privacidad y Seguridad**: Al ejecutar los LLM localmente, todos los datos sensibles (conversaciones, análisis de contenido) permanecen dentro de la infraestructura controlada, cumpliendo con regulaciones de protección de datos.
-    -   **Preparado para la Nube (Cloud-Ready)**: Esta decisión nos prepara para desplegar la aplicación fácilmente en cualquier proveedor de la nube utilizando tecnologías como Kubernetes, con la opción de ejecutar los LLM en instancias dedicadas o contenedores.
+    -   **Simplicidad para MVP**: Servicio independiente no complica el backend Java principal.
+    -   **Modelos Ligeros**: Recomendaciones por reglas simples, chatbot con respuestas predefinidas (sin LLM pesados inicialmente).
+    -   **Aislamiento**: Frontend completamente separado de lógica IA; backend actúa como intermediario.
+    -   **Escalabilidad**: Fácil agregar modelos más avanzados después sin afectar el core.
+    -   **Privacidad**: Todo procesamiento local en VM, sin datos saliendo al exterior.
+    -   **Requisitos Mínimos**: Funciona en CPU básica, sin necesidad de GPU especializada para MVP.
 
-## 6. Arquitectura de Testing: Vitest + Testing Library
+## 6. Arquitectura de Testing: JUnit + Spring Boot Test
 
--   **Decisión**: Implementar testing completo con Vitest para unitarias, integración y e2e, alcanzando 70%+ cobertura. Migrado de Jest por coherencia con el ecosistema Vite/React.
+-   **Decisión**: Implementar testing con JUnit y Spring Boot Test para backend Java, manteniendo enfoque en pruebas unitarias y de integración esenciales.
 -   **Justificación**:
-    -   **Coherencia Tecnológica**: Vitest es el framework de testing nativo de Vite, usado en el frontend. Esto unifica el stack de testing completo.
-    -   **Rendimiento Superior**: Vitest es significativamente más rápido que Jest, especialmente en suites grandes, cumpliendo mejor con los RNF de rendimiento (500ms response time).
-    -   **Compatibilidad Total**: Vitest mantiene API compatible con Jest, permitiendo migración sin reescribir tests existentes.
-    -   **Calidad Garantizada**: 45+ pruebas unitarias actualmente pasando, con cobertura completa de servicios críticos.
-    -   **Mantenibilidad**: Tests sirven como documentación viva y previenen regresiones durante el desarrollo.
-    -   **Integración Continua**: Base sólida para CI/CD pipelines futuros con ejecución más rápida.
-    -   **Desarrollo Guiado por Tests**: Asegura que nuevas funcionalidades sean testeables desde el inicio.
+    -   **Framework Nativo**: JUnit es el estándar de facto para testing en Java/Spring Boot.
+    -   **Integración Completa**: Spring Boot Test permite testing de controladores, servicios y repositorios con contexto real.
+    -   **Cobertura Básica**: Enfoque en 70% cobertura de código crítico (servicios, controladores).
+    -   **Simplicidad para MVP**: Testing suficiente para validar funcionalidad sin overhead excesivo.
+    -   **Mantenibilidad**: Tests documentan comportamiento y previenen regresiones.
 
 ## 7. Documentación: Markdown + Swagger + TypeDoc
 

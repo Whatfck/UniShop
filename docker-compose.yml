@@ -1,6 +1,6 @@
 services:
   db:
-    image: ankane/pgvector:latest
+    image: postgres:15
     container_name: unishop-db
     environment:
       POSTGRES_DB: unishop_db
@@ -10,7 +10,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/training-schema.sql:/docker-entrypoint-initdb.d/02-training-schema.sql
+      - ./database/setup-pgvector.sql:/docker-entrypoint-initdb.d/01-setup-pgvector.sql
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U unishop_user -d unishop_db"]
@@ -25,24 +25,39 @@ services:
       dockerfile: Dockerfile
     container_name: unishop-backend
     ports:
-      - "8082:8080"
+      - "8080:8080"
     environment:
-    - NODE_ENV=production
-    - PORT=8080
-    - DB_HOST=db
-    - DB_PORT=5432
-    - DB_USERNAME=unishop_user
-    - DB_PASSWORD=unishop_password
-    - DB_NAME=unishop_db
-    - FRONTEND_URL=http://localhost:5174
-    - ALLOW_NON_INSTITUTIONAL_REGISTRATION=true
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=unishop_user
+      - DB_PASSWORD=unishop_password
+      - DB_NAME=unishop_db
+      - FRONTEND_URL=http://localhost:5174
+      - IA_SERVICE_URL=http://ia-service:8000
     depends_on:
       db:
         condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      # Use the included node healthcheck script instead of curl (curl not present on minimal images)
-      test: ["CMD", "node", "healthcheck.js"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  ia-service:
+    build:
+      context: ./ia-service
+      dockerfile: Dockerfile
+    container_name: unishop-ia
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -57,7 +72,7 @@ services:
       - "5174:5174"
     environment:
       - NODE_ENV=production
-      - VITE_API_URL=http://localhost:8082
+      - VITE_API_URL=http://localhost:8080/api/v1
     depends_on:
       backend:
         condition: service_healthy

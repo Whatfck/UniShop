@@ -42,21 +42,14 @@ Los requerimientos funcionales describen las funcionalidades específicas que el
 -   **RF-03.4:** Un usuario debe poder guardar publicaciones en una lista de "Favoritos".
 -   **RF-03.5:** Un usuario debe poder ver su lista de favoritos. Si una publicación en esta lista es marcada como `VENDIDO` o eliminada, debe aparecer como "Publicación inactiva" en la lista de favoritos del usuario.
 
-### RF-04: Métricas y Estadísticas
--   **RF-04.1:** El sistema debe registrar un historial de los productos que un usuario ha visitado.
--   **RF-04.2:** Para cada publicación, el sistema debe contabilizar métricas de interés como:
-    -   Número de vistas.
-    -   Número de clics en el botón "Contactar".
--   **RF-04.3:** Un vendedor debe poder ver las estadísticas de sus propias publicaciones, así como un historial de los productos que ha vendido.
+### RF-04: Historial y Estado de Productos
+-   **RF-04.1:** Un vendedor debe poder ver un historial de los productos que ha vendido.
+-   **RF-04.2:** El sistema debe mantener el estado de cada producto (activo, vendido, eliminado) y permitir que los vendedores marquen productos como vendidos.
 
-### RF-05: Funcionalidades de IA con LLM Local
--   **RF-05.1:** El sistema deberá tener un motor de recomendación para sugerir "productos relacionados" en las búsquedas y en las páginas de producto, basado en métricas de popularidad y similitud semántica utilizando embeddings vectoriales.
--   **RF-05.2:** Se implementará un sistema de moderación automática que analice las nuevas publicaciones (imágenes y texto) utilizando modelos de lenguaje de código abierto ejecutados localmente. En lugar de censurar automáticamente, el sistema detectará contenido inapropiado (como información de contacto) y bloqueará la publicación, informando al usuario del motivo específico para que pueda corregirlo. Los casos ambiguos se enviarán a revisión manual.
--   **RF-05.3:** El sistema de IA deberá analizar la imagen y descripción de un producto para sugerir o asignar automáticamente `tags` (etiquetas) que faciliten su búsqueda y categorización, utilizando modelos de visión y lenguaje locales.
--   **RF-05.4:** Se implementará un chatbot para asistir a los usuarios con preguntas frecuentes sobre el uso de la plataforma, utilizando modelos LLM de código abierto ejecutados localmente para garantizar la privacidad de las conversaciones.
--   **RF-05.5:** Todos los modelos de IA utilizados (LLM, modelos de visión, embeddings) serán de código abierto y se ejecutarán localmente en la infraestructura de la institución, asegurando que ningún dato sensible salga de los servidores controlados.
-    -   **RF-05.5.1:** Requerimientos de hardware: Mínimo 16GB RAM, 8GB VRAM (GPU), 100GB almacenamiento para modelos.
-    -   **RF-05.5.2:** Modelos sugeridos: Llama 3.1 8B (chatbot), CLIP (análisis de imágenes), Sentence Transformers (embeddings).
+### RF-05: Funcionalidades de IA Básicas
+-   **RF-05.1:** El sistema deberá tener un motor de recomendación simple para sugerir "productos relacionados" en las búsquedas y en las páginas de producto, basado en categoría y popularidad.
+-   **RF-05.2:** Se implementará un chatbot básico para asistir a los usuarios con preguntas frecuentes sobre el uso de la plataforma, utilizando respuestas predefinidas basadas en reglas.
+-   **RF-05.3:** Los modelos de IA utilizados serán ligeros y ejecutados localmente para garantizar privacidad, sin requerir hardware especializado avanzado.
 
 ---
 
@@ -164,9 +157,9 @@ Esta sección describe, a alto nivel, las páginas o vistas principales de la ap
     -   **Panel Lateral:** Menú con accesos a las diferentes secciones.
     -   **Secciones:**
         -   **Perfil:** Formulario para editar nombre, foto de perfil, gestionar contraseña y actualizar/verificar número de teléfono (cubre **RF-01.3**, **RF-01.4**, **RF-03.2**).
-        -   **Mis Publicaciones:** Lista de productos publicados por el usuario, con opciones para editar, marcar como vendido o eliminar. Incluye estadísticas por publicación (vistas, clics en "Contactar") (cubre **RF-02.2**, **RF-04.2**, **RF-04.3**).
+        -   **Mis Publicaciones:** Lista de productos publicados por el usuario, con opciones para editar, marcar como vendido o eliminar (cubre **RF-02.2**, **RF-04.2**).
         -   **Mis Favoritos:** Lista de las publicaciones que el usuario ha guardado (cubre **RF-03.4** y **RF-03.5**).
-        -   **Historial de Ventas:** Productos marcados como `VENDIDO` (cubre **RF-02.2** y **RF-04.3**).
+        -   **Historial de Ventas:** Productos marcados como `VENDIDO` (cubre **RF-02.2** y **RF-04.1**).
         -   **Nota:** No se incluye gestión de mensajes/conversaciones, ya que toda la comunicación se maneja exclusivamente a través de WhatsApp para mantener simplicidad y privacidad.
 
 ### Vista 07: Flujo de Autenticación (Modal)
@@ -188,7 +181,7 @@ Esta sección describe, a alto nivel, las páginas o vistas principales de la ap
     -   **Layout de dos paneles:**
         -   **Panel Izquierdo (Cola de Tareas):** Una lista de todas las publicaciones que están pendientes de revisión con filtros adicionales (por tipo de infracción, urgencia, fecha). Cada elemento de la lista mostrará información clave como el título del producto y el nombre del vendedor.
         -   **Panel Derecho (Detalle de Revisión):** Al seleccionar una publicación de la cola, este panel mostrará todos sus detalles: galería de fotos, descripción completa, precio, etc., para que el moderador pueda evaluarla a fondo.
-    -   **Estadísticas de Moderación:** Panel superior con métricas como publicaciones revisadas hoy, tiempo promedio de revisión, tipos de infracciones más comunes.
+    -   **Estadísticas Básicas de Moderación:** Panel superior con métricas simples como publicaciones revisadas hoy y tipos de infracciones más comunes.
     -   **Acciones de Moderación (en el panel de detalle):**
         -   **Botón "Aprobar":** La publicación se hace visible para todos los usuarios en la plataforma.
         -   **Botón "Rechazar":** Al hacer clic, se abre un modal o sección que permite al moderador:
