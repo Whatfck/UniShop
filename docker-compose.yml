@@ -24,7 +24,7 @@ services:
     ports:
       - "8081:8080"
     environment:
-      - SWAGGER_JSON_URL=http://backend:8080/v3/api-docs
+      - SWAGGER_JSON_URL=http://localhost:8080/api-docs
     depends_on:
       - backend
 

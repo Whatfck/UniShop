@@ -1,7 +1,7 @@
 # UniShop - Full Stack Marketplace Application
 # Makefile for development, testing, and deployment tasks
 
-.PHONY: help install install-frontend install-backend dev dev-frontend dev-backend test test-backend test-frontend build build-frontend build-backend clean clean-frontend clean-backend lint lint-frontend lint-backend format format-frontend format-backend docker docker-build docker-run docker-stop status
+.PHONY: help install install-frontend install-backend dev dev-frontend dev-backend test test-backend test-frontend build build-frontend build-backend clean clean-frontend clean-backend lint lint-frontend lint-backend format format-frontend format-backend docker docker-build docker-run docker-stop status restart update
 
 # Default target
 help: ## Show this help message
@@ -86,6 +86,8 @@ run: docker-run ## Run all services
 stop: docker-stop ## Stop all services
 
 restart: stop run ## Restart all services
+
+update: stop docker-build run ## Update services: stop, build and run
 
 status: ## Show Docker services status
 	docker-compose ps
