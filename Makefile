@@ -1,7 +1,7 @@
 # UniShop - Full Stack Marketplace Application
 # Makefile for development, testing, and deployment tasks
 
-.PHONY: help install install-frontend install-backend dev dev-frontend dev-backend test test-backend test-frontend build build-frontend build-backend clean clean-frontend clean-backend lint lint-frontend lint-backend format format-frontend format-backend docker docker-build docker-run docker-stop migrate migrate-up migrate-down seed status
+.PHONY: help install install-frontend install-backend dev dev-frontend dev-backend test test-backend test-frontend build build-frontend build-backend clean clean-frontend clean-backend lint lint-frontend lint-backend format format-frontend format-backend docker docker-build docker-run docker-stop status
 
 # Default target
 help: ## Show this help message
@@ -17,7 +17,7 @@ install-frontend: ## Install frontend dependencies
 	cd frontend && npm install
 
 install-backend: ## Install backend dependencies
-	cd backend && npm install
+	cd backend && ./mvnw install
 
 # Development
 dev: ## Start both frontend and backend in development mode
@@ -28,13 +28,13 @@ dev-frontend: ## Start frontend development server
 	cd frontend && npm run dev -- --host
 
 dev-backend: ## Start backend development server
-	cd backend && npm run start:dev
+	cd backend && ./mvnw spring-boot:run
 
 # Testing
 test: test-backend test-frontend ## Run all tests
 
-test-backend: ## Run backend tests with Vitest
-	cd backend && npm run test
+test-backend: ## Run backend tests
+	cd backend && ./mvnw test
 
 test-frontend: ## Run frontend tests (if implemented)
 	cd frontend && npm run test
@@ -46,7 +46,7 @@ clean-frontend: ## Clean frontend build artifacts
 	cd frontend && rm -rf dist node_modules/.vite
 
 clean-backend: ## Clean backend build artifacts
-	cd backend && rm -rf dist
+	cd backend && ./mvnw clean
 
 ## Docker
 docker-build: ## Build Docker containers
@@ -67,8 +67,9 @@ docker-run: ## Run Docker containers
 	@echo ""
 	@echo "✅ Services started!"
 	@echo ""
-	@echo "📍 Frontend will be available at: http://localhost:5174"
-	@echo "🌐 Public access will be available at: https://daniel-pc.tailbb818c.ts.net/"
+	@echo "📍 Backend API: http://localhost:8080"
+	@echo "📍 Swagger UI: http://localhost:8081"
+	@echo "📍 Database: localhost:5432"
 	@echo ""
 	@echo "🔍 Check status: make status"
 	@echo "🛑 Stop services: make stop"
@@ -90,21 +91,9 @@ status: ## Show Docker services status
 	docker-compose ps
 
 # Database
-migrate: ## Run database migrations inside the backend container (robust)
-	@echo "🔁 Ejecutando migraciones dentro del contenedor backend..."
-	@docker compose exec backend node -e "(async()=>{ try{ const AppDataSource=require('./dist/ormconfig').default || require('./dist/ormconfig.js').default; await AppDataSource.initialize(); await AppDataSource.runMigrations(); await AppDataSource.destroy(); console.log('✅ Migrations ejecutadas'); }catch(e){ console.error(e); process.exit(1);} })()"
-
-migrate-up: ## Create and run a new migration
-	cd backend && npm run migration:generate -- -n $(name)
-
-migrate-down: ## Revert last migration
-	cd backend && npm run migration:revert
-
-seed: ## Seed database with initial data inside the backend container (robust)
-	@echo "🌱 Ejecutando seed dentro del contenedor backend..."
-	@docker compose exec backend node dist/src/database/seed.command.js || (echo "Failed to run seed inside container" && exit 1)
+# For MVP, using ddl-auto=validate, no migrations needed
 
 # Quick commands
-setup: install migrate seed ## Complete project setup
+setup: install ## Complete project setup
 	@echo "UniShop setup complete! Run 'make dev' to start development servers."
 

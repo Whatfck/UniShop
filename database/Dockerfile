@@ -2,7 +2,7 @@ FROM postgres:15-alpine
 
 # Copy initialization scripts
 COPY setup-pgvector.sql /docker-entrypoint-initdb.d/01-setup-pgvector.sql
-COPY training-schema.sql /docker-entrypoint-initdb.d/02-training-schema.sql
+COPY mvp-schema.sql /docker-entrypoint-initdb.d/02-mvp-schema.sql
 
 # Set environment variables
 ENV POSTGRES_DB=unishop_db
