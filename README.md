@@ -24,23 +24,21 @@ El proyecto ha completado exitosamente la **fase de desarrollo del backend** (~9
 -   ✅ **Patrones de Software** (Inyección de Dependencias, Controller-Service, etc.) documentados.
 -   ✅ **Stack Tecnológico** seleccionado y justificado.
 
-### 🚧 **Fase de Desarrollo Backend - EN PROGRESO**
--   🔄 **API REST completa** con endpoints esenciales documentados en Swagger
--   🔄 **Autenticación JWT** con roles (USER, MODERATOR, ADMIN) usando Spring Security
--   🔄 **Gestión completa de productos** con moderación manual
--   🔄 **Sistema de categorías** con control de acceso
--   🔄 **Panel de moderación** para usuarios MODERATOR
--   🔄 **Historial de productos** (activo/vendido) para vendedores
--   🔄 **Búsqueda y filtros** básicos con ordenamiento
--   🔄 **Sistema de favoritos** sin métricas avanzadas
+### 🚧 **Fase de Desarrollo MVP Simplificado - EN PROGRESO**
+-   🔄 **API REST esencial** con autenticación JWT básica (solo rol USER)
+-   🔄 **Gestión de productos** sin moderación
+-   🔄 **Sistema de categorías** simple
+-   🔄 **Historial de productos** básico para vendedores
+-   🔄 **Búsqueda y filtros** básicos
+-   🔄 **Sistema de favoritos**
 -   🔄 **Verificación de teléfono** y contacto WhatsApp
--   🔄 **Recomendaciones simples** basadas en categoría/popularidad
--   🔄 **Chatbot básico** con respuestas predefinidas
--   🔄 **Seguridad avanzada** (Spring Security, CORS, timeouts, compresión)
--   🔄 **Base de datos optimizada** con PostgreSQL y Hibernate
--   🔄 **Testing básico** con JUnit
--   🔄 **Logging personalizado** con SLF4J + Logback
--   🔄 **Documentación técnica** completa y actualizada
+-   🔄 **Recomendaciones simples** basadas en categoría/popularidad (IA obligatoria)
+-   🔄 **Chatbot básico** con respuestas predefinidas (IA obligatoria)
+-   🔄 **Seguridad básica** (Spring Security, CORS)
+-   🔄 **Base de datos** con PostgreSQL
+-   🔄 **Testing mínimo** para funcionalidades críticas
+-   🔄 **Logging básico**
+-   🔄 **Documentación técnica** actualizada
 
 ### 🚀 **Próximas Fases**
 1. **Migración del Backend a Java** - Crear API REST en Spring Boot con funcionalidades core
@@ -68,7 +66,7 @@ El proyecto ha completado exitosamente la **fase de desarrollo del backend** (~9
 | **Logging** | **SLF4J + Logback**  | Logging estructurado con niveles configurables.    |
 | **Seguridad** | **Spring Security**  | Headers de seguridad y control de origen.          |
 | **IA/ML** | **pgvector + Spring Boot** | Sistema completo de IA con embeddings y fine-tuning. |
-| **Estilos**     | **Tailwind CSS**     | Framework CSS Utility-First para un diseño rápido. |
+| **Estilos**     | **Tailwind CSS**     | Framework CSS Utility-First con tema claro fijo. |
 | **Contenedores** | **Docker**           | Contenerización completa para desarrollo y producción. |
 
 ---

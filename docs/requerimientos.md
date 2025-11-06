@@ -13,10 +13,7 @@ Los requerimientos funcionales describen las funcionalidades específicas que el
 -   **RF-01.2:** Un usuario registrado debe poder iniciar sesión con su correo y contraseña.
 -   **RF-01.3:** Un usuario debe poder gestionar su cuenta, incluyendo la capacidad de cambiar su contraseña y solicitar la recuperación de la cuenta si la olvida.
 -   **RF-01.4:** Un usuario debe poder ver y editar su perfil, que consistirá en su nombre y una foto (opcional).
--   **RF-01.5:** El sistema debe gestionar múltiples roles de usuario:
-    -   `USER`: Rol estándar para todos. Un usuario puede comprar y vender.
-    -   `MODERADOR`: Puede revisar, aprobar, y eliminar publicaciones de otros usuarios.
-    -   `ADMIN`: Tiene control total sobre la plataforma, incluyendo la gestión de usuarios y roles.
+-   **RF-01.5:** El sistema gestiona un solo rol de usuario: `USER`, que puede comprar y vender productos.
 -   **RF-01.6:** Cualquier usuario debe poder ver el perfil público de un vendedor, donde se listarán todas sus publicaciones activas.
 
 ### RF-02: Gestión de Publicaciones
@@ -30,8 +27,7 @@ Los requerimientos funcionales describen las funcionalidades específicas que el
 -   **RF-02.3:** Cualquier usuario (registrado o no) debe poder ver la lista de productos disponibles.
 -   **RF-02.4:** Cualquier usuario debe poder buscar productos por nombre o categoría. Los resultados deben mostrar los productos más relevantes y una sección de "productos relacionados".
 -   **RF-02.5:** Cualquier usuario debe poder ver los detalles de un producto específico (fotos, descripción, precio, información del vendedor).
--   **RF-02.6:** Un `MODERADOR` debe tener un panel para ver las publicaciones pendientes de revisión, aprobarlas o rechazarlas.
--   **RF-02.7:** La descripción de un producto no debe contener información personal de contacto como números de teléfono, direcciones, correos electrónicos o enlaces a redes sociales. El sistema debe hacer cumplir esta regla tanto a través de la moderación manual como, en el futuro, de la automática (ver **RF-05.2**).
+-   **RF-02.6:** La descripción de un producto no debe contener información personal de contacto como números de teléfono, direcciones, correos electrónicos o enlaces a redes sociales. Los usuarios serán responsables de seguir esta regla.
 
 ### RF-03: Interacción y Contacto
 -   **RF-03.1:** El método de contacto principal será WhatsApp. Al hacer clic en "Contactar", se generará un mensaje predefinido para enviar al vendedor (ej: "Hola, me interesa tu producto '[Nombre del Producto]' que vi en Unishop.").
@@ -72,7 +68,7 @@ Los requerimientos no funcionales describen las características de calidad y la
 ### RNF-03: Usabilidad
 -   **RNF-03.1:** La interfaz debe ser intuitiva y fácil de usar para un estudiante universitario promedio sin necesidad de un manual.
 -   **RNF-03.2:** El diseño debe ser responsivo, adaptándose correctamente a dispositivos móviles y de escritorio.
--   **RNF-03.3:** La aplicación debe soportar tema claro y oscuro, detectando automáticamente las preferencias del sistema operativo del usuario (incluyendo modo automático día/noche si está disponible). El tema debe mantenerse sincronizado con el sistema operativo sin intervención manual del usuario.
+-   **RNF-03.3:** La aplicación debe tener un diseño moderno con tema claro por defecto, optimizado para estudiantes universitarios.
 
 ### RNF-04: Escalabilidad
 -   **RNF-04.1:** La arquitectura debe permitir la adición de nuevos módulos de negocio (ej: subastas, intercambios) sin requerir una reescritura completa del sistema.
@@ -82,11 +78,11 @@ Los requerimientos no funcionales describen las características de calidad y la
 
 ### RNF-05: Mantenibilidad
 -   **RNF-05.1:** El código debe seguir las guías de estilo definidas y estar debidamente documentado para facilitar la incorporación de nuevos desarrolladores.
--   **RNF-05.2:** El sistema debe mantener logs estructurados de todas las operaciones críticas, errores y actividades de moderación para auditoría y debugging.
+-   **RNF-05.2:** El sistema debe mantener logs básicos de operaciones críticas y errores para debugging.
 
 ### RNF-06: Testing
--   **RNF-06.1:** Se deben implementar pruebas unitarias y de integración utilizando Vitest para garantizar la calidad y estabilidad del código. Vitest se utiliza por su mayor velocidad y coherencia con el ecosistema Vite/React.
--   **RNF-06.2:** Las pruebas deben cubrir al menos el 70% del código, incluyendo servicios, controladores y utilidades principales.
+-   **RNF-06.1:** Se deben implementar pruebas básicas unitarias para funcionalidades críticas.
+-   **RNF-06.2:** Las pruebas deben cubrir las funcionalidades principales para asegurar estabilidad básica.
 
 ---
 
@@ -99,7 +95,7 @@ Esta sección describe, a alto nivel, las páginas o vistas principales de la ap
     -   **Header:**
         -   Barra de búsqueda prominente con **búsqueda predictiva/autocomplete** (cubre **RF-02.4**).
         -   **Si no está autenticado:** Botones "Iniciar Sesión" y "Registrarse".
-        -   **Si está autenticado:** Botón "Vender", foto de perfil del usuario (clicable) y, si tiene el rol, un botón "Moderar".
+        -   **Si está autenticado:** Botón "Vender" y foto de perfil del usuario (clicable).
             -   Al hacer clic en la foto de perfil se despliega un menú con: "Ver Perfil Público", "Panel de Usuario" y "Cerrar Sesión".
     -   **Cuerpo Principal (layout de dos columnas):**
         -   **Columna Izquierda (Panel de Filtros):** Una sección para refinar la vista de productos con **Skeleton Loading** durante carga. Incluirá:
@@ -175,20 +171,6 @@ Esta sección describe, a alto nivel, las páginas o vistas principales de la ap
     -   **Cubre:** **RF-01.2** (autenticación por correo institucional).
 -   **Flujo de Recuperación de Contraseña:** Enlace que inicia el proceso para restablecer la contraseña (cubre **RF-01.3**).
 
-### Vista 08: Página de Moderación (Exclusiva para rol `MODERADOR`)
--   **Acceso:** Exclusivo a través del botón "Moderar" en el header, visible únicamente para usuarios con el rol de `MODERADOR`.
--   **Contenido:**
-    -   **Layout de dos paneles:**
-        -   **Panel Izquierdo (Cola de Tareas):** Una lista de todas las publicaciones que están pendientes de revisión con filtros adicionales (por tipo de infracción, urgencia, fecha). Cada elemento de la lista mostrará información clave como el título del producto y el nombre del vendedor.
-        -   **Panel Derecho (Detalle de Revisión):** Al seleccionar una publicación de la cola, este panel mostrará todos sus detalles: galería de fotos, descripción completa, precio, etc., para que el moderador pueda evaluarla a fondo.
-    -   **Estadísticas Básicas de Moderación:** Panel superior con métricas simples como publicaciones revisadas hoy y tipos de infracciones más comunes.
-    -   **Acciones de Moderación (en el panel de detalle):**
-        -   **Botón "Aprobar":** La publicación se hace visible para todos los usuarios en la plataforma.
-        -   **Botón "Rechazar":** Al hacer clic, se abre un modal o sección que permite al moderador:
-            1.  **Seleccionar un motivo principal** de una lista predefinida (ej: "Producto no permitido", "Fotos de baja calidad", "Descripción incompleta", "Información de contacto en la descripción").
-            2.  **(Opcional) Añadir un comentario personalizado** para dar más detalles al vendedor.
-            Esta combinación asegura consistencia y permite dar feedback específico. La acción notifica al vendedor con el motivo y el comentario, y mantiene la publicación como no visible (cubre **RF-02.6**).
-        -   **Acciones Masivas:** Posibilidad de aprobar/rechazar múltiples publicaciones seleccionadas con checkbox de selección múltiple.
 
 ### Vista 09: Página de Error 404
 -   **Acceso:** Automático cuando se intenta acceder a una URL que no existe.
