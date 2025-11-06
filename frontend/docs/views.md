@@ -8,9 +8,8 @@ Este documento detalla las vistas principales del frontend de UniShop, organizad
 - [Vista 02: Product Detail (Detalle de Producto)](#vista-02-product-detail-detalle-de-producto)
 - [Vista 03: User Profile (Perfil de Usuario)](#vista-03-user-profile-perfil-de-usuario)
 - [Vista 04: Authentication (Autenticación)](#vista-04-authentication-autenticación)
-- [Vista 05: Moderation Panel (Panel de Moderación)](#vista-05-moderation-panel-panel-de-moderación)
-- [Vista 06: Search Results (Resultados de Búsqueda)](#vista-06-search-results-resultados-de-búsqueda)
-- [Vista 07: Create Product (Crear Producto)](#vista-07-create-product-crear-producto)
+- [Vista 05: Search Results (Resultados de Búsqueda)](#vista-05-search-results-resultados-de-búsqueda)
+- [Vista 06: Create Product (Crear Producto)](#vista-06-create-product-crear-producto)
 - [Vistas de Error](#vistas-de-error)
 
 ## 🏠 Vista 01: Home (Página Principal)
@@ -248,6 +247,11 @@ const UserProfile = () => {
 
 ### Ubicación
 - **Ruta**: Modal (no ruta dedicada)
+- **Archivo**: `src/components/auth/LoginModal.tsx`, `src/components/auth/RegisterModal.tsx`
+- **Estado**: ✅ Implementada
+
+### Ubicación
+- **Ruta**: Modal (no ruta dedicada)
 - **Archivo**: `src/components/features/auth/AuthModal.tsx`
 
 ### Estructura
@@ -296,78 +300,14 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }: AuthModalProps) =
 - **Confirmar contraseña**: Validación
 - **Términos**: Checkbox requerido
 
-## 🛡️ Vista 05: Moderation Panel (Panel de Moderación)
 
-### Ubicación
-- **Ruta**: `/moderation`
-- **Archivo**: `src/views/Moderation/ModerationPanel.tsx`
-- **Acceso**: Solo rol `MODERADOR` o `ADMIN`
-
-### Estructura
-
-```typescript
-// src/views/Moderation/ModerationPanel.tsx
-const ModerationPanel = () => {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [queue, setQueue] = useState<Product[]>([]);
-
-  return (
-    <div className="min-h-screen bg-[var(--color-background)]">
-      <Header />
-
-      <main className="max-w-full mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          {/* Queue Panel */}
-          <div className="xl:col-span-1">
-            <ModerationQueue
-              products={queue}
-              onProductSelect={setSelectedProduct}
-              selectedProductId={selectedProduct?.id}
-            />
-          </div>
-
-          {/* Detail Panel */}
-          <div className="xl:col-span-2">
-            {selectedProduct ? (
-              <ProductReview
-                product={selectedProduct}
-                onApprove={handleApprove}
-                onReject={handleReject}
-              />
-            ) : (
-              <EmptyState
-                title="Selecciona un producto"
-                description="Elige un producto de la cola para revisarlo"
-              />
-            )}
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-};
-```
-
-### Componentes Principales
-
-#### ModerationQueue
-- **Lista de productos**: Pendientes de revisión
-- **Filtros**: Por tipo de infracción, urgencia
-- **Estados**: Loading, empty
-- **Badge contador**: Número de items
-
-#### ProductReview
-- **Galería completa**: Todas las imágenes
-- **Información detallada**: Título, descripción, precio
-- **Botones de acción**: Aprobar, Rechazar
-- **Modal de rechazo**: Motivos predefinidos + comentario
-
-## 🔍 Vista 06: Search Results (Resultados de Búsqueda)
+## 🔍 Vista 05: Search Results (Resultados de Búsqueda)
 
 ### Ubicación
 - **Ruta**: `/search`
 - **Query params**: `?q=query&category=cat&price_min=min&price_max=max`
 - **Archivo**: `src/views/Search/SearchResults.tsx`
+- **Estado**: 🚧 Pendiente
 
 ### Estructura
 
@@ -427,12 +367,13 @@ const SearchResults = () => {
 - **Load more**: Paginación infinita
 - **Empty state**: "No se encontraron resultados"
 
-## ➕ Vista 07: Create Product (Crear Producto)
+## ➕ Vista 06: Create Product (Crear Producto)
 
 ### Ubicación
 - **Ruta**: `/sell`
 - **Archivo**: `src/views/Product/CreateProduct.tsx`
 - **Acceso**: Usuarios autenticados con teléfono verificado
+- **Estado**: 🚧 Pendiente
 
 ### Estructura
 
@@ -604,14 +545,6 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute requiredAuth requiredPhoneVerification>
         <CreateProduct />
-      </ProtectedRoute>
-    ),
-  },
-  {
-    path: '/moderation',
-    element: (
-      <ProtectedRoute requiredRole="MODERADOR">
-        <ModerationPanel />
       </ProtectedRoute>
     ),
   },

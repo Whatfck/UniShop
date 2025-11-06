@@ -28,7 +28,6 @@ El proyecto utiliza **PostgreSQL** como sistema de gestión de bases de datos re
 | **Categories** | Categorías de productos | id, name |
 | **Favorites** | Lista de favoritos por usuario | userId, productId |
 | **Metrics** | Estadísticas de productos | productId, views, contacts |
-| **Moderations** | Control de moderación | productId, status, moderatorId |
 | **PhoneVerifications** | Verificación de teléfonos | userId, phoneNumber, verificationCode |
 | **Contacts** | Registro de contactos | userId, productId, message |
 
@@ -38,7 +37,6 @@ El proyecto utiliza **PostgreSQL** como sistema de gestión de bases de datos re
 - **Product** → **Category** (N:1) - Un producto pertenece a una categoría
 - **User** → **Favorite** (1:N) - Un usuario puede tener múltiples favoritos
 - **Product** → **Metric** (1:1) - Un producto tiene métricas asociadas
-- **Product** → **Moderation** (1:1) - Un producto puede estar en moderación
 
 ---
 

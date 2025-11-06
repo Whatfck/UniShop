@@ -16,6 +16,6 @@ El objetivo es mantener un registro claro y accesible que sirva como guía tanto
 
 -   **[🎨 Patrones de Software](./patrones-de-software.md)**: Detalla los patrones de diseño (Inyección de Dependencias, Controller-Service, etc.) que se aplican en el backend para garantizar un código de alta calidad.
 
--   **[⚙️ Decisiones Técnicas](./decisiones-tecnicas.md)**: Justifica las elecciones tecnológicas clave del proyecto (NestJS, PostgreSQL, React, etc.).
+-   **[⚙️ Decisiones Técnicas](./decisiones-tecnicas.md)**: Justifica las elecciones tecnológicas clave del proyecto (Spring Boot, PostgreSQL, React, etc.).
 
 ---

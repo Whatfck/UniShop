@@ -28,8 +28,7 @@ frontend/src/
 ├── views/               # Páginas principales
 │   ├── Home/
 │   ├── Product/
-│   ├── Profile/
-│   └── Moderation/
+│   └── Profile/
 ├── hooks/               # Custom hooks
 ├── utils/               # Utilidades
 ├── services/            # API services

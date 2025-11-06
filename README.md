@@ -92,8 +92,9 @@ Este es el método más sencillo para levantar todo el entorno de desarrollo (Ba
     ```
 
 3.  **Servicios disponibles:**
+    -   **Frontend:** http://localhost:5174
     -   **Backend API:** http://localhost:8080
-    -   **Documentación de la API (Swagger):** http://localhost:8080/api/docs
+    -   **Documentación de la API (Swagger):** http://localhost:8081
     -   **Base de Datos (PostgreSQL):** `localhost:5432` (usuario: `unishop_user`, BD: `unishop_db`)
 
 ### Acceso Público con Tailscale Funnel
@@ -145,7 +146,7 @@ Si deseas ejecutar solo el backend localmente:
 
 4.  **Ver documentación:**
     - API: http://localhost:8080/api/v1
-    - Swagger: http://localhost:8080/swagger-ui.html
+    - Swagger: http://localhost:8081
 
 ### Testing
 
@@ -164,6 +165,8 @@ cd backend
 Unishop/
 ├── backend/        # API REST en Spring Boot (Java)
 ├── frontend/       # Aplicación en React (TypeScript + Vite)
+├── ia-service/     # Servicio de IA en Python/FastAPI
+├── database/       # Configuración de PostgreSQL con pgvector
 ├── docs/           # Documentación (Requerimientos, Arquitectura, etc.)
 └── docker-compose.yml # Orquestador de servicios para desarrollo
 ```

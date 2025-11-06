@@ -612,8 +612,6 @@ flowchart TD
     J -->|Requiere revisión| K[Producto en estado 'Pendiente']
     J -->|Aprobado| L[Producto publicado y visible]
 
-    K --> M[Notificación al vendedor]
-    M --> N[Vendedor puede editar o esperar moderación]
 
     L --> O[Producto visible en búsquedas]
     O --> P[Compradores pueden contactar]
@@ -661,8 +659,6 @@ flowchart TD
     C -->|Sí| D[Producto visible inmediatamente]
     C -->|No| E[Producto marcado como 'Pendiente']
 
-    E --> F[Notificación a moderadores]
-    F --> G[Moderador revisa en panel de moderación]
 
     G --> H{¿Aprobar?}
     H -->|Sí| D

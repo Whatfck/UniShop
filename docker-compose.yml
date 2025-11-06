@@ -19,6 +19,15 @@ services:
     depends_on:
       - db
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "5174:5174"
+    environment:
+      - VITE_API_URL=http://100.121.170.2:8080
+    depends_on:
+      - backend
+
   swagger-ui:
     image: swaggerapi/swagger-ui:latest
     ports:

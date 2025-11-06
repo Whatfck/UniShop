@@ -53,8 +53,7 @@ frontend/
 │   │   ├── Home/          # Página principal
 │   │   ├── Product/       # Detalle de producto
 │   │   ├── Profile/       # Perfil de usuario
-│   │   ├── Auth/          # Autenticación
-│   │   └── Moderation/    # Panel de moderación
+│   │   └── Auth/          # Autenticación
 │   ├── hooks/             # Custom hooks
 │   │   ├── useTheme.ts    # Manejo de tema
 │   │   ├── useAuth.ts     # Autenticación
@@ -167,8 +166,6 @@ frontend/
 - Formularios con validación
 - Recuperación de contraseña
 
-### Vista 05: Moderation Panel
-- Layout de dos paneles
 - Cola de tareas pendientes
 - Detalle de revisión con acciones
 

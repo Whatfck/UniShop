@@ -24,6 +24,7 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+        category.setCreatedAt(java.time.LocalDateTime.now());
         Category savedCategory = categoryRepository.save(category);
         return ResponseEntity.ok(savedCategory);
     }

@@ -50,14 +50,6 @@ CREATE TABLE metrics (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Moderations table
-CREATE TABLE moderations (
-    id SERIAL PRIMARY KEY,
-    product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
-    status VARCHAR(50) DEFAULT 'PENDING',
-    moderator_id INTEGER REFERENCES users(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
 -- Phone verifications table
 CREATE TABLE phone_verifications (
@@ -68,14 +60,6 @@ CREATE TABLE phone_verifications (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Contacts table
-CREATE TABLE contacts (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-    product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
-    message TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
 
 -- Indexes for performance
 CREATE INDEX idx_products_status ON products(status);

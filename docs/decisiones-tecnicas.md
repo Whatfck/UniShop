@@ -6,7 +6,7 @@ Este documento registra y justifica las decisiones tecnológicas clave tomadas d
 
 ## 1. Backend: Spring Boot (Java)
 
--   **Decisión**: Cambiar de NestJS a Spring Boot (Java) para alinearse con requerimientos del proyecto.
+-   **Decisión**: Usar Spring Boot (Java) desde el inicio para el backend.
 -   **Justificación**:
     -   **Requisito Específico**: El backend debe ser desarrollado en Java según especificaciones del proyecto.
     -   **Madurez Empresarial**: Spring Boot es el framework Java más utilizado en la industria, con excelente soporte para APIs REST, seguridad y ORM.
