@@ -181,6 +181,8 @@ Unishop/
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Autores
 
-**[@Whatfck](https://github.com/Whatfck)** — Desarrollador del proyecto.
+**[@Whatfck](https://github.com/Whatfck)** — Desarrollador del proyecto.  
+**[@SebastianBolivar01](https://github.com/SebastianBolivar01)** — Desarrollador del proyecto.  
+**[@Jujuks](https://github.com/Jujuks)** — Desarrollador del proyecto.
