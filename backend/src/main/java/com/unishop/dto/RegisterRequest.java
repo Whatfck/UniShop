@@ -13,7 +13,7 @@ public class RegisterRequest {
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
-    @Pattern(regexp = ".*@campusucc\\.edu\\.co$", message = "Email must be from UCC domain (@campusucc.edu.co)")
+    @Pattern(regexp = ".*@.*\\..*$", message = "Email must be valid format")
     private String email;
 
     @NotBlank(message = "Password is required")
