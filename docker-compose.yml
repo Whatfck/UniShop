@@ -1,13 +1,13 @@
 services:
   db:
-    build: ./database
+    image: ghcr.io/whatfck/unishop-database:v0.1
     ports:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
 
   backend:
-    build: ./backend
+    image: ghcr.io/whatfck/unishop-backend:v0.1
     ports:
       - "8080:8080"
     environment:
@@ -20,11 +20,11 @@ services:
       - db
 
   frontend:
-    build: ./frontend
+    image: ghcr.io/whatfck/unishop-frontend:v0.1
     ports:
       - "5174:5174"
     environment:
-      - VITE_API_URL=http://100.121.170.2:8080
+      - VITE_API_URL=http://100.121.170.2:8080   # <- Ajusta a tu backend real
     depends_on:
       - backend
 
