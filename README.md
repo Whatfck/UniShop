@@ -32,7 +32,7 @@ Unishop/
 
 ---
 
-## � Stack Tecnológico
+## 💻 Stack Tecnológico
 
 | Capa      | Tecnología Principal | Detalles                                           |
 | :-------- | :------------------- | :------------------------------------------------- |
@@ -150,7 +150,8 @@ cd backend
 ---
 
 ## 👨‍💻 Autores
-**Desarrolladores del proyecto**
-**[@Whatfck](https://github.com/Whatfck)** — Daniel Pérez.
-**[@SebastianBolivar01](https://github.com/SebastianBolivar01)** — Sebastian Bolívar.
-**[@Jujuks](https://github.com/Jujuks)** — Julian Mera.
+|**Desarrolladores del proyecto**|
+|-|
+|**[@Whatfck](https://github.com/Whatfck)** — Daniel Pérez.| 
+|**[@SebastianBolivar01](https://github.com/SebastianBolivar01)** — Sebastian Bolívar.| 
+|**[@Jujuks](https://github.com/Jujuks)** — Julian Mera.|
