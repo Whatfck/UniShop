@@ -14,44 +14,25 @@ Toda la documentación funcional, arquitectónica y de decisiones técnicas se e
 
 ---
 
-## ✨ Estado Actual del Proyecto
 
-El proyecto ha completado exitosamente la **fase de desarrollo del backend** (~90% completado). Se ha implementado una API REST completa y robusta siguiendo las mejores prácticas de desarrollo.
+## 📂 Estructura del Proyecto
 
-### ✅ **Fase de Planificación - COMPLETADA**
--   ✅ **Requerimientos Funcionales y No Funcionales** definidos.
--   ✅ **Arquitectura de 3 Capas** y **Monolito Modular** establecida.
--   ✅ **Patrones de Software** (Inyección de Dependencias, Controller-Service, etc.) documentados.
--   ✅ **Stack Tecnológico** seleccionado y justificado.
+Este repositorio principal contiene la documentación y configuración general del proyecto. Los componentes individuales se han dividido en repositorios separados para una mejor organización y mantenimiento:
 
-### 🚧 **Fase de Desarrollo MVP Simplificado - EN PROGRESO**
--   🔄 **API REST esencial** con autenticación JWT básica (solo rol USER)
--   🔄 **Gestión de productos** sin moderación
--   🔄 **Sistema de categorías** simple
--   🔄 **Historial de productos** básico para vendedores
--   🔄 **Búsqueda y filtros** básicos
--   🔄 **Sistema de favoritos**
--   🔄 **Verificación de teléfono** y contacto WhatsApp
--   🔄 **Recomendaciones simples** basadas en categoría/popularidad (IA obligatoria)
--   🔄 **Chatbot básico** con respuestas predefinidas (IA obligatoria)
--   🔄 **Seguridad básica** (Spring Security, CORS)
--   🔄 **Base de datos** con PostgreSQL
--   🔄 **Testing mínimo** para funcionalidades críticas
--   🔄 **Logging básico**
--   🔄 **Documentación técnica** actualizada
+- [**UniShop Frontend**](https://github.com/Whatfck/UniShop-frontend) - Aplicación web en React con TypeScript y Vite.
+- [**UniShop Backend**](https://github.com/Whatfck/UniShop-backend) - API REST en Spring Boot (Java).
+- [**UniShop Database**](https://github.com/Whatfck/UniShop-database) - Configuración de PostgreSQL con pgvector.
+- [**UniShop IA Service**](https://github.com/Whatfck/UniShop-ia-service) - Servicio de IA en Python/FastAPI.
 
-### 🚀 **Próximas Fases**
-1. **Migración del Backend a Java** - Crear API REST en Spring Boot con funcionalidades core
-2. **Desarrollo del Frontend** - React con TypeScript y Tailwind CSS
-3. **Integración Frontend-Backend** - Conectar APIs via HTTPS
-4. **Funcionalidades IA Básicas** - Servicio Python/FastAPI para recomendaciones y chatbot
-5. **Testing Básico** - Pruebas unitarias con JUnit
-6. **Despliegue en VM** - Configuración con Docker y Portainer
-7. **Monitoreo Básico** - Logs y health checks
+```plaintext
+Unishop/
+├── docs/           # Documentación (Requerimientos, Arquitectura, etc.)
+└── docker-compose.yml # Orquestador de servicios para desarrollo
+```
 
 ---
 
-## 🚀 Stack Tecnológico
+## 💻 Stack Tecnológico
 
 | Capa      | Tecnología Principal | Detalles                                           |
 | :-------- | :------------------- | :------------------------------------------------- |
@@ -159,19 +140,6 @@ cd backend
 
 ---
 
-## 📂 Estructura del Proyecto
-
-```plaintext
-Unishop/
-├── backend/        # API REST en Spring Boot (Java)
-├── frontend/       # Aplicación en React (TypeScript + Vite)
-├── ia-service/     # Servicio de IA en Python/FastAPI
-├── database/       # Configuración de PostgreSQL con pgvector
-├── docs/           # Documentación (Requerimientos, Arquitectura, etc.)
-└── docker-compose.yml # Orquestador de servicios para desarrollo
-```
-
----
 
 ## 🌱 Futuro del Proyecto
 
@@ -182,7 +150,8 @@ Unishop/
 ---
 
 ## 👨‍💻 Autores
-
-**[@Whatfck](https://github.com/Whatfck)** — Desarrollador del proyecto.  
-**[@SebastianBolivar01](https://github.com/SebastianBolivar01)** — Desarrollador del proyecto.  
-**[@Jujuks](https://github.com/Jujuks)** — Desarrollador del proyecto.
+|**Desarrolladores del proyecto**|
+|-|
+|**[@Whatfck](https://github.com/Whatfck)** — Daniel Pérez.| 
+|**[@SebastianBolivar01](https://github.com/SebastianBolivar01)** — Sebastian Bolívar.| 
+|**[@Jujuks](https://github.com/Jujuks)** — Julian Mera.|
