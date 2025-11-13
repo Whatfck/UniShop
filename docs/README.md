@@ -12,6 +12,8 @@ El objetivo es mantener un registro claro y accesible que sirva como guía tanto
 
 -   **[🏗️ Arquitectura](./arquitectura.md)**: Explica la visión general de la arquitectura de la aplicación (3-Tier, Monolito Modular). Define *cómo* está estructurado el sistema.
 
+-   **[🚀 Despliegue Vercel](./despliegue-vercel.md)**: Guía completa para el setup híbrido (Frontend en Vercel + Backend local con Tailscale Funnel).
+
 -   **[🎨 Diseño UI/UX](./diseno-ui-ux.md)**: Directrices completas de diseño de interfaz, sistema de componentes, accesibilidad y experiencia de usuario. Incluye la [Declaración de Identidad Visual](./identidad-visual-ui-ux.md).
 
 -   **[🎨 Patrones de Software](./patrones-de-software.md)**: Detalla los patrones de diseño (Inyección de Dependencias, Controller-Service, etc.) que se aplican en el backend para garantizar un código de alta calidad.
