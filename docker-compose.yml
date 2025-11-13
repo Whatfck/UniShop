@@ -19,23 +19,5 @@ services:
     depends_on:
       - db
 
-  frontend:
-    image: ghcr.io/whatfck/unishop-frontend:v0.1
-    ports:
-      - "5174:5174"
-    environment:
-      - VITE_API_URL=http://100.121.170.2:8080   # <- Ajusta a tu backend real
-    depends_on:
-      - backend
-
-  swagger-ui:
-    image: swaggerapi/swagger-ui:latest
-    ports:
-      - "8081:8080"
-    environment:
-      - SWAGGER_JSON_URL=http://100.121.170.2:8080/v3/api-docs
-    depends_on:
-      - backend
-
 volumes:
   db_data:
