@@ -1,13 +1,13 @@
 services:
   db:
-    image: ghcr.io/whatfck/unishop-database:v0.1
+    image: ghcr.io/whatfck/unishop-database:latest
     ports:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
 
   backend:
-    image: ghcr.io/whatfck/unishop-backend:v0.1
+    image: ghcr.io/whatfck/unishop-backend:latest
     ports:
       - "8080:8080"
     environment:
@@ -18,6 +18,13 @@ services:
       - DB_PASSWORD=unishop_password
     depends_on:
       - db
+
+  ia-service:
+    image: ghcr.io/whatfck/unishop-ia-service:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - BACKEND_URL=http://backend:8080
 
 volumes:
   db_data:
