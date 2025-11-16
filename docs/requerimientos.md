@@ -29,6 +29,14 @@ Los requerimientos funcionales describen las funcionalidades específicas que el
 -   **RF-02.5:** Cualquier usuario debe poder ver los detalles de un producto específico (fotos, descripción, precio, información del vendedor).
 -   **RF-02.6:** La descripción de un producto no debe contener información personal de contacto como números de teléfono, direcciones, correos electrónicos o enlaces a redes sociales. Los usuarios serán responsables de seguir esta regla.
 
+### Vista 03: Página de Detalles del Producto
+-   **Contenido:**
+    -   Galería de fotos del producto con **Skeleton Loading** durante carga.
+    -   Nombre, precio, descripción detallada y categoría (cubre **RF-02.5**).
+    -   Información del vendedor: nombre y enlace a su perfil público (cubre **RF-01.6** y **RF-02.5**).
+    -   **Botón "Contactar":** Un botón verde con el icono de WhatsApp y el texto "Contactar". Al hacer clic, activa el flujo de contacto a través de WhatsApp (cubre **RF-03.1**).
+    -   **Botón de Favoritos:** Un icono de corazón que permite añadir/quitar la publicación de la lista de favoritos del usuario.
+
 ### RF-03: Interacción y Contacto
 -   **RF-03.1:** El método de contacto principal será WhatsApp. Al hacer clic en "Contactar", se generará un mensaje predefinido para enviar al vendedor (ej: "Hola, me interesa tu producto '[Nombre del Producto]' que vi en Unishop.").
     -   **RF-03.1.1:** Se utilizará WhatsApp Business API o deep linking para integración nativa.
@@ -37,6 +45,7 @@ Los requerimientos funcionales describen las funcionalidades específicas que el
 -   **RF-03.3:** Un usuario no está obligado a verificar su número de teléfono para contactar a un vendedor.
 -   **RF-03.4:** Un usuario debe poder guardar publicaciones en una lista de "Favoritos".
 -   **RF-03.5:** Un usuario debe poder ver su lista de favoritos. Si una publicación en esta lista es marcada como `VENDIDO` o eliminada, debe aparecer como "Publicación inactiva" en la lista de favoritos del usuario.
+
 
 ### RF-04: Historial y Estado de Productos
 -   **RF-04.1:** Un vendedor debe poder ver un historial de los productos que ha vendido.
@@ -145,7 +154,6 @@ Esta sección describe, a alto nivel, las páginas o vistas principales de la ap
     -   Nombre y foto del vendedor.
     -   Cuadrícula con todas las publicaciones activas del vendedor (cubre **RF-01.6**).
     -   Esta es la vista que otros usuarios ven de un vendedor.
-    -   **Nota:** No se incluye contacto directo desde el perfil para mantener la privacidad. Todo contacto se realiza exclusivamente a través de WhatsApp desde las publicaciones individuales.
 
 ### Vista 06: Panel de Usuario (Dashboard)
 -   **Acceso:** A través del menú desplegable de la foto de perfil. Es el centro de control privado del usuario.
@@ -156,7 +164,6 @@ Esta sección describe, a alto nivel, las páginas o vistas principales de la ap
         -   **Mis Publicaciones:** Lista de productos publicados por el usuario, con opciones para editar, marcar como vendido o eliminar (cubre **RF-02.2**, **RF-04.2**).
         -   **Mis Favoritos:** Lista de las publicaciones que el usuario ha guardado (cubre **RF-03.4** y **RF-03.5**).
         -   **Historial de Ventas:** Productos marcados como `VENDIDO` (cubre **RF-02.2** y **RF-04.1**).
-        -   **Nota:** No se incluye gestión de mensajes/conversaciones, ya que toda la comunicación se maneja exclusivamente a través de WhatsApp para mantener simplicidad y privacidad.
 
 ### Vista 07: Flujo de Autenticación (Modal)
 -   **Funcionamiento:** En lugar de redirigir a páginas separadas, al hacer clic en "Iniciar Sesión" o "Registrarse", se abrirá un componente modal sobre la vista actual.

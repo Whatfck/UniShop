@@ -607,14 +607,9 @@ flowchart TD
     F -->|Sí| H[Revisar preview del producto]
 
     H --> I[Publicar producto]
-    I --> J{¿Moderación automática?}
+    I --> J[Producto publicado y visible]
 
-    J -->|Requiere revisión| K[Producto en estado 'Pendiente']
-    J -->|Aprobado| L[Producto publicado y visible]
-
-
-    L --> O[Producto visible en búsquedas]
-    O --> P[Compradores pueden contactar]
+    J --> K[Producto visible en búsquedas]
 
     G --> E
 ```
@@ -650,29 +645,6 @@ flowchart TD
     M --> K
 ```
 
-### Flujo de Moderación
-```mermaid
-flowchart TD
-    A[Producto publicado] --> B[Análisis automático por IA]
-    B --> C{¿Contenido aprobado?}
-
-    C -->|Sí| D[Producto visible inmediatamente]
-    C -->|No| E[Producto marcado como 'Pendiente']
-
-
-    G --> H{¿Aprobar?}
-    H -->|Sí| D
-    H -->|No| I[Seleccionar motivo de rechazo]
-
-    I --> J[Enviar notificación al vendedor]
-    J --> K[Vendedor puede corregir y republicar]
-
-    K --> L[Nuevo análisis automático]
-    L --> B
-
-    D --> M[Producto en resultados de búsqueda]
-    M --> N[Compradores pueden ver y contactar]
-```
 
 ## Componentes de E-commerce
 
@@ -682,7 +654,6 @@ import {
   Heart,
   MapPin,
   MessageCircle,
-  Star,
   Clock
 } from 'lucide-react'; // Usando Lucide icons
 
@@ -695,7 +666,6 @@ interface ProductCardProps {
     images: string[];
     seller: {
       name: string;
-      rating: number;
     };
     location: string;
     createdAt: Date;
@@ -795,10 +765,6 @@ const ProductCard = ({
             </AvatarFallback>
           </Avatar>
           <span className="text-sm text-text-secondary">{product.seller.name}</span>
-          <div className="flex items-center gap-1 ml-auto">
-            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-            <span className="text-sm">{product.seller.rating}</span>
-          </div>
         </div>
 
         <Button
@@ -1066,7 +1032,7 @@ const mockProduct = {
   price: 85000,
   condition: 'new' as const,
   images: ['/placeholder-product.jpg'],
-  seller: { name: 'Juan Pérez', rating: 4.8 },
+  seller: { name: 'Juan Pérez' },
   location: 'Campus Central',
   createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 horas atrás
 };

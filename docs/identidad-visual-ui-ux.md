@@ -239,7 +239,6 @@ El diseño refleja cercanía, colaboración y autonomía: no pretende parecer in
 1. **Registro/Login:** Modal con validación progresiva
 2. **Publicación:** Wizard de 3 pasos con progreso visual
 3. **Búsqueda:** Autocomplete con resultados instantáneos
-4. **Contacto:** Deep linking a WhatsApp con mensaje predefinido
 
 ---
 
