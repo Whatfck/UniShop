@@ -1,0 +1,311 @@
+{
+  "info": {
+    "name": "Unishop IA Service - Dev",
+    "description": "Colección de pruebas para el servicio de IA de Unishop",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Verificar que el servicio de IA esté funcionando"
+      },
+      "response": []
+    },
+    {
+      "name": "Recomendaciones Populares",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/recommendations/popular",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "recommendations", "popular"]
+        },
+        "description": "Obtener productos populares recomendados"
+      },
+      "response": []
+    },
+    {
+      "name": "Recomendaciones por Producto",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/recommendations/{{product_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "recommendations", "{{product_id}}"]
+        },
+        "description": "Obtener recomendaciones relacionadas con un producto específico"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Saludo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"hola\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Probar el chatbot con un saludo"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Pregunta Precio",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"cuánto cuesta este producto?\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Preguntar sobre precios"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Pregunta Envío",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"cómo funciona el envío?\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Preguntar sobre envíos"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Pregunta Registro",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"cómo me registro?\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Preguntar sobre registro"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Pregunta Contacto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"cómo contacto al vendedor?\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Preguntar sobre contacto con vendedores"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Producto Más Caro",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"cuál es el producto más caro?\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Preguntar sobre el producto más caro disponible"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Producto Más Barato",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"cuál es el producto más barato?\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Preguntar sobre el producto más económico disponible"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Libro Musculoesquelético",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"necesito un libro para sistema musculoesquelético\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Buscar libros sobre sistema musculoesquelético"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Libro Python",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"necesito un libro para aprender python\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Buscar libros sobre Python y programación"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Búsqueda Semántica General",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"busco libros de ingeniería de software\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Probar búsqueda semántica general de libros"
+      },
+      "response": []
+    },
+    {
+      "name": "Chatbot - Pregunta No Reconocida",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"message\": \"cómo hago arroz con leche?\"}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/chatbot/message",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "chatbot", "message"]
+        },
+        "description": "Probar respuesta por defecto para preguntas no relacionadas con UniShop"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "product_id",
+      "value": "100",
+      "type": "string"
+    }
+  ]
+}

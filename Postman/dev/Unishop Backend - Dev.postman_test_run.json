@@ -1,0 +1,220 @@
+{
+	"id": "c726481b-31f4-4de6-af5a-7f14cef3d41f",
+	"name": "Unishop Backend - Dev",
+	"timestamp": "2025-11-20T20:35:27.442Z",
+	"collection_id": "50079842-867466f4-8080-4d0f-80f7-7b9a21286fb3",
+	"folder_id": 0,
+	"environment_id": "50079842-59d5140d-928b-4316-a9e5-5ebd3b8196d3",
+	"totalPass": 0,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-11-20T20:35:25.592Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "4eb2ed72-6441-47c5-b876-6de84bb13a7c",
+			"name": "Backend Health Check",
+			"url": "http://localhost:8080/actuator/health",
+			"time": 72,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				72
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "76cd5532-99f4-4fa5-a128-67d586688b0a",
+			"name": "Get All Products",
+			"url": "http://localhost:8080/api/v1/products",
+			"time": 561,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				561
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "d71d14ed-9c8c-4173-9d9c-b4420e1dea86",
+			"name": "Get Product by ID",
+			"url": "http://localhost:8080/api/v1/products/100",
+			"time": 22,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				22
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "c16b3e87-3a42-4bb2-8770-26ef60f8a641",
+			"name": "Get Products by Category",
+			"url": "http://localhost:8080/api/v1/products?categoryId=3",
+			"time": 103,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				103
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "f79fc429-51d9-4524-a7fd-c8bd35770a5e",
+			"name": "Get User Favorites",
+			"url": "http://localhost:8080/api/v1/favorites",
+			"time": 9,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				9
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "1ae425a6-f0b5-4af0-aa4c-f865833eb622",
+			"name": "Add Product to Favorites",
+			"url": "http://localhost:8080/api/v1/favorites/100",
+			"time": 13,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				13
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "0a13b2fb-df1f-4354-bf3e-e2782ca71d05",
+			"name": "Remove Product from Favorites",
+			"url": "http://localhost:8080/api/v1/favorites/100",
+			"time": 12,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				12
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "99ca9a3b-757d-4a84-a9d6-221c1cb62288",
+			"name": "Toggle Favorite Status",
+			"url": "http://localhost:8080/api/v1/favorites/100/toggle",
+			"time": 12,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				12
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "e7791336-86b7-416c-8f7f-96808bbe5c83",
+			"name": "Check if Product is Favorited",
+			"url": "http://localhost:8080/api/v1/favorites/100/check",
+			"time": 13,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				13
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 817,
+	"collection": {
+		"requests": [
+			{
+				"id": "4eb2ed72-6441-47c5-b876-6de84bb13a7c",
+				"method": "GET"
+			},
+			{
+				"id": "76cd5532-99f4-4fa5-a128-67d586688b0a",
+				"method": "GET"
+			},
+			{
+				"id": "d71d14ed-9c8c-4173-9d9c-b4420e1dea86",
+				"method": "GET"
+			},
+			{
+				"id": "c16b3e87-3a42-4bb2-8770-26ef60f8a641",
+				"method": "GET"
+			},
+			{
+				"id": "f79fc429-51d9-4524-a7fd-c8bd35770a5e",
+				"method": "GET"
+			},
+			{
+				"id": "1ae425a6-f0b5-4af0-aa4c-f865833eb622",
+				"method": "POST"
+			},
+			{
+				"id": "0a13b2fb-df1f-4354-bf3e-e2782ca71d05",
+				"method": "DELETE"
+			},
+			{
+				"id": "99ca9a3b-757d-4a84-a9d6-221c1cb62288",
+				"method": "POST"
+			},
+			{
+				"id": "e7791336-86b7-416c-8f7f-96808bbe5c83",
+				"method": "GET"
+			}
+		]
+	}
+}

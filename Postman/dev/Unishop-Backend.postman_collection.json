@@ -1,0 +1,186 @@
+{
+  "info": {
+    "name": "Unishop Backend - Dev",
+    "description": "Colección de pruebas para el backend de Unishop",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Backend Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{backend_url}}/actuator/health",
+          "host": ["{{backend_url}}"],
+          "path": ["actuator", "health"]
+        },
+        "description": "Verificar que el backend esté funcionando"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{backend_url}}/api/v1/products",
+          "host": ["{{backend_url}}"],
+          "path": ["api", "v1", "products"]
+        },
+        "description": "Obtener lista de productos (usado por IA)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Product by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{backend_url}}/api/v1/products/{{product_id}}",
+          "host": ["{{backend_url}}"],
+          "path": ["api", "v1", "products", "{{product_id}}"]
+        },
+        "description": "Obtener producto específico (usado por IA)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Products by Category",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{backend_url}}/api/v1/products?categoryId=3",
+          "host": ["{{backend_url}}"],
+          "path": ["api", "v1", "products"],
+          "query": [
+            {
+              "key": "categoryId",
+              "value": "3"
+            }
+          ]
+        },
+        "description": "Obtener productos por categoría"
+      },
+      "response": []
+    },
+    {
+      "name": "Get User Favorites",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{auth_token}}",
+            "description": "Token de autenticación (usa variable de entorno)"
+          }
+        ],
+        "url": {
+          "raw": "{{backend_url}}/api/v1/favorites",
+          "host": ["{{backend_url}}"],
+          "path": ["api", "v1", "favorites"]
+        },
+        "description": "Obtener lista de productos favoritos del usuario (usa userId hardcoded = 2)"
+      },
+      "response": []
+    },
+    {
+      "name": "Add Product to Favorites",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{auth_token}}",
+            "description": "Token de autenticación (usa variable de entorno)"
+          }
+        ],
+        "url": {
+          "raw": "{{backend_url}}/api/v1/favorites/{{product_id}}",
+          "host": ["{{backend_url}}"],
+          "path": ["api", "v1", "favorites", "{{product_id}}"]
+        },
+        "description": "Agregar producto específico a favoritos (usa userId hardcoded = 2)"
+      },
+      "response": []
+    },
+    {
+      "name": "Remove Product from Favorites",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{auth_token}}",
+            "description": "Token de autenticación (usa variable de entorno)"
+          }
+        ],
+        "url": {
+          "raw": "{{backend_url}}/api/v1/favorites/{{product_id}}",
+          "host": ["{{backend_url}}"],
+          "path": ["api", "v1", "favorites", "{{product_id}}"]
+        },
+        "description": "Remover producto específico de favoritos (usa userId hardcoded = 2)"
+      },
+      "response": []
+    },
+    {
+      "name": "Toggle Favorite Status",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{auth_token}}",
+            "description": "Token de autenticación (usa variable de entorno)"
+          }
+        ],
+        "url": {
+          "raw": "{{backend_url}}/api/v1/favorites/{{product_id}}/toggle",
+          "host": ["{{backend_url}}"],
+          "path": ["api", "v1", "favorites", "{{product_id}}", "toggle"]
+        },
+        "description": "Alternar estado de favorito (agregar/quitar) (usa userId hardcoded = 2)"
+      },
+      "response": []
+    },
+    {
+      "name": "Check if Product is Favorited",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{auth_token}}",
+            "description": "Token de autenticación (usa variable de entorno)"
+          }
+        ],
+        "url": {
+          "raw": "{{backend_url}}/api/v1/favorites/{{product_id}}/check",
+          "host": ["{{backend_url}}"],
+          "path": ["api", "v1", "favorites", "{{product_id}}", "check"]
+        },
+        "description": "Verificar si un producto está en favoritos del usuario (usa userId hardcoded = 2)"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "product_id",
+      "value": "100",
+      "type": "string"
+    }
+  ]
+}
