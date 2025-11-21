@@ -22,7 +22,7 @@ services:
       - db
 
   ia-service:
-    image: ghcr.io/whatfck/unishop-ia-service:v0.3
+    image: ghcr.io/whatfck/unishop-ia-service:latest
     ports:
       - "8000:8000"
     environment:
