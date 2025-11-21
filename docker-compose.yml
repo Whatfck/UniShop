@@ -10,6 +10,8 @@ services:
     image: ghcr.io/whatfck/unishop-backend:latest
     ports:
       - "8080:8080"
+    volumes:
+      - images_data:/app/uploads
     environment:
       - DB_HOST=db
       - DB_PORT=5432
@@ -20,7 +22,7 @@ services:
       - db
 
   ia-service:
-    image: ghcr.io/whatfck/unishop-ia-service:latest
+    image: ghcr.io/whatfck/unishop-ia-service:v0.3.0
     ports:
       - "8000:8000"
     environment:
@@ -28,3 +30,4 @@ services:
 
 volumes:
   db_data:
+  images_data:
