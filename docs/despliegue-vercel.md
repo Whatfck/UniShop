@@ -29,7 +29,7 @@ Verifica que estén corriendo:
 - IA Service: http://localhost:8000
 - DB: localhost:5432
 
-### 2. Exponer Backend con Tailscale Funnel
+### 2. Exponer Servicios con Tailscale Funnel
 
 ```bash
 # Instalar Tailscale (si no lo tienes)
@@ -38,11 +38,16 @@ Verifica que estén corriendo:
 # Iniciar sesión
 tailscale login
 
-# Exponer puerto 8080 públicamente
+# Exponer backend (puerto 8080)
 tailscale funnel --bg --yes --https=443 localhost:8080
+
+# Exponer IA service (puerto 8000) con subdominio diferente
+tailscale funnel --bg --yes --https=443 localhost:8000 --subdomain=unishop-ia
 ```
 
-**Backend público:** `https://unishop.tailbb818c.ts.net`
+**URLs públicas:**
+- **Backend:** `https://unishop.tailbb818c.ts.net`
+- **IA Service:** `https://unishop-ia.tailbb818c.ts.net`
 
 ### 3. Desplegar Frontend en Vercel
 
@@ -113,6 +118,7 @@ tailscale funnel --bg --yes --https=443 localhost:8080
 
 - **Frontend:** https://uni-shop-frontend.vercel.app
 - **Backend:** https://unishop.tailbb818c.ts.net
+- **IA Service:** https://unishop-ia.tailbb818c.ts.net
 - **Documentación API:** https://unishop.tailbb818c.ts.net/swagger-ui.html
 
 ## Costos

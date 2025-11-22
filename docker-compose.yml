@@ -27,6 +27,8 @@ services:
       - "8000:8000"
     environment:
       - BACKEND_URL=http://backend:8080
+    depends_on:
+      - backend
 
 volumes:
   db_data:
