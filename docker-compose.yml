@@ -7,7 +7,7 @@ services:
       - db_data:/var/lib/postgresql/data
 
   backend:
-    image: ghcr.io/whatfck/unishop-backend:v0.5
+    image: ghcr.io/whatfck/unishop-backend:latest
     ports:
       - "8080:8080"
     volumes:
